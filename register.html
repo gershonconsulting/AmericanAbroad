@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join the Network — AmericanAbroad.net | Gershon Consulting</title>
+  <meta name="description" content="Join the AmericanAbroad network. Connect with Americans living abroad worldwide, get the weekly digest, find local leaders in your city, and tap into a vetted partner directory.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo" style="text-decoration:none;">
+      <span class="logo-main">American<span>Abroad</span></span>
+      <span class="logo-sub">A Gershon Consulting Initiative</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="news.html">Weekly Digest</a></li>
+      <li><a href="resources.html">Resource Hub</a></li>
+      <li><a href="leaders.html">Local Leaders</a></li>
+      <li><a href="articles/index.html">Articles</a></li><li><a href="newsletter.html">Newsletter</a></li>
+      <li><a href="partners.html">Become a Partner</a></li>
+      <li><a href="register.html" class="active nav-cta">Join the Network</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <h1>Join the AmericanAbroad Network</h1>
+    <p>One quick form, three things at once: subscribe to the weekly digest, get connected to your city's local leader (or apply to be one), and tap into our vetted partner directory.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" style="max-width:780px;">
+    <div class="card" style="padding:0;">
+      <div class="card-body" style="padding:36px;">
+        <form id="newsletterForm">
+          <div class="form-group" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+            <div>
+              <label class="form-label" for="firstName">First name *</label>
+              <input class="form-control" id="firstName" type="text" required>
+            </div>
+            <div>
+              <label class="form-label" for="lastName">Last name *</label>
+              <input class="form-control" id="lastName" type="text" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="subEmail">Email *</label>
+            <input class="form-control" id="subEmail" type="email" required>
+          </div>
+
+          <div class="form-group" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+            <div>
+              <label class="form-label" for="subCity">City</label>
+              <input class="form-control" id="subCity" type="text" placeholder="Lisbon, Berlin, Mexico City…">
+            </div>
+            <div>
+              <label class="form-label" for="subCountry">Country</label>
+              <input class="form-control" id="subCountry" type="text" placeholder="Portugal, Germany, Mexico…">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="yearsAbroad">How long have you been abroad?</label>
+            <select class="form-control" id="yearsAbroad">
+              <option value="">Select…</option>
+              <option value="planning">Just planning the move</option>
+              <option value="<1">Less than 1 year</option>
+              <option value="1-3">1–3 years</option>
+              <option value="4-9">4–9 years</option>
+              <option value="10+">10+ years</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">What are you most interested in?</label>
+            <div class="interests-grid" id="interestsGrid">
+              <label class="form-check"><input type="checkbox" value="us_taxes">US taxes / FBAR / FATCA</label>
+              <label class="form-check"><input type="checkbox" value="visas_residency">Visas & residency</label>
+              <label class="form-check"><input type="checkbox" value="banking">Banking & money</label>
+              <label class="form-check"><input type="checkbox" value="healthcare">Healthcare abroad</label>
+              <label class="form-check"><input type="checkbox" value="voting">Voting from abroad</label>
+              <label class="form-check"><input type="checkbox" value="business">Business / freelancing</label>
+              <label class="form-check"><input type="checkbox" value="us_market">US market expansion</label>
+              <label class="form-check"><input type="checkbox" value="community">Local community / events</label>
+              <label class="form-check"><input type="checkbox" value="retirement">Retirement abroad</label>
+              <label class="form-check"><input type="checkbox" value="kids_schools">Kids & schools</label>
+            </div>
+          </div>
+
+          <div class="alert alert-gold" style="background:rgba(191,10,48,0.08);border:1px solid rgba(191,10,48,0.25);color:#8A0820;">
+            <i class="fas fa-flag-usa"></i>
+            <div>
+              <strong>Want to organize your city?</strong>
+              We're recruiting <a href="leaders.html" style="color:var(--red);font-weight:700;">one Local Leader per city</a>. Check the box below and we'll send you the leader application.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-check">
+              <input type="checkbox" id="leaderInterest">
+              I'd like to organize local events for Americans in my city — send me the Local Leader application
+            </label>
+            <label class="form-check">
+              <input type="checkbox" id="isConsultant">
+              I'm an advisor/consultant (tax, legal, financial, immigration, real estate). Send me partner program info too.
+            </label>
+          </div>
+
+          <button type="submit" id="subSubmitBtn" class="btn btn-primary btn-lg" style="width:100%;">
+            <i class="fas fa-flag-usa" style="margin-right:8px"></i>Join the Network
+          </button>
+
+          <p style="font-size:0.78rem;color:var(--mid-grey);margin-top:14px;text-align:center;">
+            Free. No spam. Unsubscribe in one click.
+          </p>
+        </form>
+
+        <div id="subSuccess" style="display:none;text-align:center;padding:40px 20px;">
+          <div style="font-size:3rem;margin-bottom:12px;">🇺🇸</div>
+          <h3 style="margin-bottom:10px;">You're in.</h3>
+          <p style="color:var(--mid-grey);margin-bottom:20px;">Welcome to the AmericanAbroad Network. We'll be in touch.</p>
+          <a href="resources.html" class="btn btn-outline-red">Explore the Resource Hub</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-main">American<span>Abroad</span></div>
+        <p>The complete resource hub for Americans living abroad. A Gershon Consulting Initiative.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="topics.html">All Topics</a></li>
+          <li><a href="resources.html">Resource Hub</a></li>
+          <li><a href="news.html">Weekly Digest</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get Involved</h4>
+        <ul>
+          <li><a href="leaders.html">Become a Leader</a></li>
+          <li><a href="partners.html">Become a Partner</a></li>
+          <li><a href="newsletter.html">Newsletter</a></li>
+          <li><a href="register.html">Join the Network</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>About</h4>
+        <ul>
+          <li><a href="https://www.gershonconsulting.com">About Gershon</a></li>
+          <li><a href="https://www.gershonconsulting.com">Our Services</a></li>
+          <li><a href="https://www.gershonconsulting.com/calendar">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 AmericanAbroad.net — A <a href="https://www.gershonconsulting.com">Gershon Consulting</a> Initiative.</span>
+      <div class="footer-legal"><span>Information only — not legal or tax advice.</span></div>
+    </div>
+  </div>
+</footer>
+
+<button id="back-to-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+<div id="toast" class="toast"></div>
+<script src="js/main.js"></script>
+</body>
+</html>

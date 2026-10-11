@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="{{LANG}}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{TITLE}} | AmericanAbroad</title>
+<meta name="description" content="{{DESCRIPTION}}">
+<link rel="canonical" href="https://americanabroad.net/articles/{{LANG}}/{{SLUG}}.html">
+<!-- one hreflang line per translated version, e.g. -->
+<!-- <link rel="alternate" hreflang="fr" href="https://americanabroad.net/articles/fr/{{SLUG_FR}}.html"> -->
+<meta property="og:title" content="{{TITLE}}">
+<meta property="og:description" content="{{DESCRIPTION}}">
+<meta property="og:type" content="article">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"{{TITLE}}","datePublished":"{{DATE}}","inLanguage":"{{LANG}}","author":{"@type":"Organization","name":"Gershon Consulting","url":"https://www.gershonconsulting.com"},"publisher":{"@type":"Organization","name":"AmericanAbroad"}}</script>
+<style>:root{--accent:#c8102e;--ink:#0a1f5c;--bg:#ffffff;--card:#f6f7fb;--text:#1d2433;--muted:#5b6478;--line:#e3e6ee}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter, -apple-system, Segoe UI, sans-serif;background:var(--bg);color:var(--text);line-height:1.65}
+a{color:var(--accent)}
+.ak-top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 24px;border-bottom:1px solid var(--line)}
+.ak-top .brand{font-weight:700;font-size:1.15rem;color:var(--ink);text-decoration:none}
+.ak-top nav a{margin-left:18px;color:var(--muted);text-decoration:none;font-size:.95rem}
+.ak-top nav a:hover{color:var(--accent)}
+.ak-wrap{max-width:920px;margin:0 auto;padding:48px 20px}
+.ak-hero h1{font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.15;color:var(--ink);margin-bottom:14px}
+.ak-hero p{font-size:1.1rem;color:var(--muted);max-width:760px}
+.ak-langs{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 8px}
+.ak-langs a{border:1px solid var(--line);border-radius:999px;padding:6px 14px;text-decoration:none;color:var(--text);font-size:.92rem;background:var(--card)}
+.ak-langs a:hover{border-color:var(--accent);color:var(--accent)}
+.ak-lang{margin-top:44px;padding-top:28px;border-top:3px solid var(--accent)}
+.ak-lang h2{font-size:1.45rem;color:var(--ink);margin-bottom:10px}
+.ak-lang .about{color:var(--muted);margin-bottom:18px}
+.ak-list{list-style:none;display:grid;gap:12px}
+.ak-list li a{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;text-decoration:none;color:var(--text)}
+.ak-list li a strong{display:block;color:var(--ink);margin-bottom:4px}
+.ak-list li a span{color:var(--muted);font-size:.92rem}
+.ak-empty{color:var(--muted);font-style:italic}
+.ak-cta{display:inline-block;margin-top:16px;background:var(--accent);color:#fff;padding:10px 18px;border-radius:8px;text-decoration:none;font-weight:600}
+.ak-article h1{font-size:clamp(1.8rem,4vw,2.4rem);line-height:1.2;color:var(--ink);margin:6px 0 12px}
+.ak-article .meta{color:var(--muted);font-size:.92rem;margin-bottom:28px}
+.ak-article h2{font-size:1.35rem;color:var(--ink);margin:32px 0 10px}
+.ak-article p,.ak-article li{margin-bottom:12px}
+.ak-article ul,.ak-article ol{padding-left:22px}
+.ak-article table{border-collapse:collapse;width:100%;margin:16px 0}
+.ak-article th,.ak-article td{border:1px solid var(--line);padding:8px 10px;text-align:left}
+.ak-box{margin-top:40px;background:var(--card);border-left:4px solid var(--accent);border-radius:8px;padding:22px}
+.ak-box h2{margin-top:0}
+.ak-foot{border-top:1px solid var(--line);padding:24px;text-align:center;color:var(--muted);font-size:.88rem}
+@media (max-width:640px){.ak-top{flex-direction:column;align-items:flex-start}.ak-top nav a{margin:0 14px 0 0}}</style>
+</head>
+<body>
+<header class="ak-top"><a class="brand" href="../../index.html">AmericanAbroad</a><nav><a href="../../index.html">Home</a><a href="../index.html">Articles</a><a href="https://www.gershonconsulting.com" rel="noopener">Gershon Consulting</a></nav></header>
+<main class="ak-wrap ak-article">
+<p class="meta"><a href="../index.html#{{LANG}}">← Articles</a></p>
+<h1>{{TITLE}}</h1>
+<p class="meta">{{DATE}} · Gershon Consulting</p>
+{{BODY_HTML}}
+<div class="ak-box">
+<h2>{{CTA_HEADING}}</h2>
+<p>{{CTA_TEXT}}</p>
+<a class="ak-cta" href="https://www.gershonconsulting.com/calendar">{{CTA_BUTTON}} →</a>
+<p style="margin-top:12px"><a href="https://www.gershonconsulting.com">gershonconsulting.com</a></p>
+</div>
+</main>
+<footer class="ak-foot">© 2026 AmericanAbroad — a <a href="https://www.gershonconsulting.com">Gershon Consulting</a> initiative · <a href="https://www.gershonconsulting.com/calendar">Book a call</a></footer>
+</body>
+</html>

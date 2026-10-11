@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resource Hub — AmericanAbroad.net | The Definitive Library for Americans Worldwide</title>
+  <meta name="description" content="200+ curated resources for Americans living abroad: US taxes, banking, health insurance, advocacy, expat platforms, country communities, news, podcasts and more.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .resources-layout { display: grid; grid-template-columns: 260px 1fr; gap: 32px; align-items: start; }
+    .sidebar { position: sticky; top: 90px; background: var(--white); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden; border: 1px solid var(--light-grey); max-height: calc(100vh - 110px); overflow-y: auto; }
+    .sidebar-header { background: var(--navy); padding: 18px 20px; }
+    .sidebar-header h4 { color: var(--white); font-family: var(--font-main); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin: 0; }
+    .sidebar-nav a { display: flex; align-items: center; gap: 10px; padding: 11px 20px; font-size: 0.86rem; color: var(--dark); border-bottom: 1px solid var(--light-grey); transition: all var(--transition); }
+    .sidebar-nav a:hover, .sidebar-nav a.active { background: rgba(191,10,48,0.06); color: var(--navy); border-left: 3px solid var(--red); padding-left: 17px; }
+    .sidebar-nav a:last-child { border-bottom: none; }
+    .sidebar-nav a .s-icon { width: 22px; text-align: center; font-size: 1rem; }
+    .sidebar-nav a .s-count { margin-left: auto; font-size: 0.7rem; background: var(--light-grey); padding: 2px 8px; border-radius: 10px; color: var(--navy); font-weight: 700; }
+    .category-section { margin-bottom: 56px; scroll-margin-top: 90px; }
+    .category-section h2 { display: flex; align-items: center; gap: 14px; font-size: 1.5rem; padding-bottom: 14px; border-bottom: 2px solid var(--light-grey); margin-bottom: 24px; flex-wrap: wrap; }
+    .category-section h2 .cat-emoji { font-size: 1.8rem; }
+    .category-section h2 .cat-count-badge { font-size: 0.72rem; background: rgba(191,10,48,0.12); color: #8A0820; padding: 4px 12px; border-radius: 20px; font-family: var(--font-main); font-weight: 600; }
+    .resources-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .sub-category { margin-bottom: 28px; }
+    .sub-category h4 { font-family: var(--font-main); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--mid-grey); font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .sub-category h4::after { content: ''; flex: 1; height: 1px; background: var(--light-grey); }
+    @media (max-width: 900px) { .resources-layout { grid-template-columns: 1fr; } .sidebar { position: static; max-height: none; } .resources-2col { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo" style="text-decoration:none;">
+      <span class="logo-main">American<span>Abroad</span></span>
+      <span class="logo-sub">A Gershon Consulting Initiative</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="news.html">Weekly Digest</a></li>
+      <li><a href="resources.html" class="active">Resource Hub</a></li>
+      <li><a href="leaders.html">Local Leaders</a></li>
+      <li><a href="articles/index.html">Articles</a></li><li><a href="newsletter.html">Newsletter</a></li>
+      <li><a href="partners.html">Become a Partner</a></li>
+      <li><a href="register.html" class="nav-cta">Join the Network</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="container">
+    <span class="eyebrow" style="color:var(--red); display:block; margin-bottom:10px;">The Mega Catalog</span>
+    <h1>Resource Hub</h1>
+    <p>200+ curated links across 16 categories — the definitive guide for Americans living abroad, assembled from the most trusted sources worldwide.</p>
+  </div>
+</div>
+
+<!-- SEARCH -->
+<div style="background:var(--white); padding:32px 0; border-bottom:1px solid var(--light-grey);">
+  <div class="container">
+    <div class="search-bar" style="max-width:600px; margin:0 auto;">
+      <i class="fas fa-search"></i>
+      <input type="text" id="resourceSearch" placeholder="Search resources: taxes, banking, healthcare, voting, FATCA…" autocomplete="off">
+      <span id="searchCount" style="font-size:0.8rem; color:var(--mid-grey); white-space:nowrap;"></span>
+    </div>
+    <div style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:14px;">
+      <button class="tag tag-red filter-btn active" data-filter="all">All Resources</button>
+      <button class="tag tag-navy filter-btn" data-filter="official">🏛️ Official</button>
+      <button class="tag filter-btn" style="background:rgba(52,152,219,0.1);color:#1a5f8a;" data-filter="advocacy">✊ Advocacy</button>
+      <button class="tag tag-green filter-btn" data-filter="community">🤝 Community</button>
+      <button class="tag filter-btn" style="background:rgba(231,76,60,0.1);color:#8a1a1a;" data-filter="essential">⭐ Essential</button>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="section">
+  <div class="container">
+    <div class="resources-layout">
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <h4><i class="fas fa-list" style="margin-right:8px"></i>Categories</h4>
+        </div>
+        <nav class="sidebar-nav">
+          <a href="#government"><span class="s-icon">🏛️</span> US Government & Official<span class="s-count">12</span></a>
+          <a href="#advocacy"><span class="s-icon">✊</span> Advocacy Orgs<span class="s-count">8</span></a>
+          <a href="#expat"><span class="s-icon">🌍</span> Expat Platforms<span class="s-count">8</span></a>
+          <a href="#tax-services"><span class="s-icon">🧮</span> Tax Services<span class="s-count">8</span></a>
+          <a href="#banking"><span class="s-icon">🏦</span> Banking & Money<span class="s-count">8</span></a>
+          <a href="#health"><span class="s-icon">🏥</span> Health Insurance<span class="s-count">8</span></a>
+          <a href="#reddit"><span class="s-icon">💬</span> Reddit Communities<span class="s-count">7</span></a>
+          <a href="#facebook"><span class="s-icon">👥</span> Facebook Groups<span class="s-count">10</span></a>
+          <a href="#news-media"><span class="s-icon">📰</span> News & Media<span class="s-count">8</span></a>
+          <a href="#video-podcasts"><span class="s-icon">🎧</span> YouTube & Podcasts<span class="s-count">8</span></a>
+          <a href="#events"><span class="s-icon">📅</span> Events & Meetups<span class="s-count">6</span></a>
+          <a href="#taxes"><span class="s-icon">💸</span> US Taxes Reference<span class="s-count">8</span></a>
+        </nav>
+        <div style="padding:16px 20px; background:rgba(191,10,48,0.06); border-top:1px solid var(--light-grey);">
+          <p style="font-size:0.78rem; color:var(--mid-grey); margin:0; line-height:1.6;">Need help finding something? <a href="newsletter.html" style="color:var(--red); font-weight:600;">Subscribe to the newsletter</a> for weekly updates.</p>
+        </div>
+      </aside>
+
+      <!-- RESOURCE CONTENT -->
+      <main id="resourceContent">
+
+        <!-- ===================== US GOVERNMENT ===================== -->
+        <section class="category-section" id="government">
+          <h2><span class="cat-emoji">🏛️</span> US Government & Official <span class="cat-count-badge">12 Resources</span></h2>
+
+          <div class="alert alert-gold">
+            <i class="fas fa-info-circle"></i>
+            <strong>Start here:</strong> Every American abroad should bookmark these official US government resources — your first line of authority on taxes, voting, embassies, and emergencies.
+          </div>
+
+          <div class="resources-2col">
+            <a href="https://travel.state.gov" target="_blank" rel="noopener" class="resource-link" data-category="official" data-keywords="state department travel us citizens services">
+              <div class="rl-icon">🏛️</div>
+              <div class="rl-body"><h4>US Department of State — travel.state.gov</h4><p>Country information, US citizen services, embassy locator, travel advisories</p></div>
+              <span class="rl-badge official">Official</span>
+            </a>
+            <a href="https://www.usembassy.gov" target="_blank" rel="noopener" class="resource-link" data-category="official" data-keywords="us embassy locator worldwide consulate">
+              <div class="rl-icon">📍</div>
+              <div class="rl-body"><h4>USEmbassy.gov — Embassy & Consulate Locator</h4><p>Find your nearest US Embassy or Consulate worldwide — services and contacts</p></div>
+              <span class="rl-badge essential">Essential</span>
+            </a>
+            <a href="https://step.state.gov" target="_blank" rel="noopener" class="resource-link" data-category="official" data-keywords="STEP smart traveler enrollment program emergency">
+              <div class="rl-icon">📡</div>
+              <div class="rl-body"><h4>STEP — Smart Traveler Enrollment Program</h4><p>Register your residence with the US Embassy — receive emergency alerts and updates</p></div>
+              <span class="rl-badge essential">Essential</span>
+            </a>
+            <a href="https://www.irs.gov/individuals/international-taxpayers" target="_blank" rel="noopener" class="resource-link" data-category="official" data-keywords="irs international taxpayers fbar fatca form 2555">
+              <div class="rl-icon">🏛️</div>
+              <div class="rl-body"><h4>IRS — International Taxpayers Portal</h4><p>FBAR, FATCA, foreign earned income exclusion, foreign tax credit guidance</p></div>
+              <span class="rl-badge essential">Essential</span>
+            </a>
+            <a href="https://www.fvap.gov" target="_blank" rel="noopener" class="resource-link" data-category="official" data-keywords="fvap federal voting assistance program absentee">
+              <div class="rl-icon">🗳️</div>
+              <div class="rl-body"><h4>FVAP — Federal Voting Assistance Program</h4><p>Register and request your absentee ballot — every state, every election</p></div>
+              <span class="rl-badge essential">Essential</span>
+            </a>
+            <a href="https://www.fincen.gov/report-foreign-bank-and-financial-accounts" target="_blank" rel="noopener" class="resource-link" data-category="official" data-keywords="fbar fincen 114 foreign bank account report">
+              <div class="rl-icon">🏦</div>
+              <div class="rl-body"><h4>FinCEN — FBAR Report (FinCEN Form 114)</h4><p>Report Foreign Bank & Financial Accounts when aggregate exceeds $10,000</p></div>
+              <span class="rl-badge essential">Essential</span>
+            </a>
+            <a href="https://www.ssa.gov/international/" target="_blank" rel="noopener" class="resource-link" data-category="official" data-keywords="social security administration international totalization">
+              <div class="rl-icon">🛡️</div>
+              <div class="rl-body"><h4>SSA — Social Security International</h4><p>Receiving Social Security abroad and totalization agreement details</p></div>
+              <span class="rl-badge official">Official</span>
+            </a>
+            <a href="https://www.medicare.gov" target="_blank" rel="noopener" class="resource-link" data-category="official" data-keywords="medicare abroad coverage americans">
+              <div class="rl-icon">🏥</div>
+              <div class="rl-body"><h4>Medicare.gov — Coverage Abroad Info</h4><p>Understanding Medicare while you live overseas — what's covered, what's not</p></div>
+              <span class="rl-badge official">Official</span>
+            </a>
+            <a href="https://travel.state.gov/content/travel/en/passports.html" target="_blank" rel="noopener" class="resource-link" data-category="official" data-keywords="passport renewal abroad">
+              <div class="rl-icon">🛂</div>
+              <div class="rl-body"><h4>State Dept — US Passports</h4><p>Renewal abroad, lost passports, emergency passports, child passports</p></div>
+              <span class="rl-badge official">Official</span>
+            </a>
+            <a href="https://www.irs.gov/individuals/international-taxpayers/foreign-account-tax-compliance-act-fatca" target="_blank" rel="noopener" class="resource-link" data-category="official" data-keywords="fatca foreign account tax compliance form 8938">
+              <div class="rl-icon">📑</div>
+              <div class="rl-body"><h4>IRS — FATCA Overview</h4><p>Foreign Account Tax Compliance Act and Form 8938 thresholds for expats</p></div>
+              <span class="rl-badge official">Official</span>
+            </a>
+            <a href="https://travel.state.gov/content/travel/en/legal/travel-legal-considerations/us-citizenship/Renunciation-US-Nationality-Abroad.html" target="_blank" rel="noopener" class="resource-link" data-category="official" data-keywords="renunciation us citizenship abroad state department">
+              <div class="rl-icon">📄</div>
+              <div class="rl-body"><h4>State Dept — Renunciation of US Nationality</h4><p>Official process if you're considering renouncing US citizenship abroad</p></div>
+              <span class="rl-badge official">Official</span>
+            </a>
+            <a href="https://www.selectusa.gov" target="_blank" rel="noopener" class="resource-link" data-category="official" data-keywords="selectusa invest in america foreign companies">
+              <div class="rl-icon">🇺🇸</div>
+              <div class="rl-body"><h4>SelectUSA — Invest in America</h4><p>US government program facilitating foreign investment into the United States</p></div>
+              <span class="rl-badge official">Official</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- ===================== ADVOCACY ===================== -->
+        <section class="category-section" id="advocacy">
+          <h2><span class="cat-emoji">✊</span> Advocacy Organizations <span class="cat-count-badge">8 Resources</span></h2>
+
+          <div class="resources-2col">
+            <a href="https://www.americansabroad.org" target="_blank" rel="noopener" class="resource-link" data-category="advocacy" data-keywords="american citizens abroad ACA advocacy residence based taxation">
+              <div class="rl-icon">🏛️</div>
+              <div class="rl-body"><h4>American Citizens Abroad (ACA)</h4><p>Leading non-partisan advocacy for residence-based taxation and Americans abroad</p></div>
+              <span class="rl-badge essential">Essential</span>
+            </a>
+            <a href="https://www.aaro.org" target="_blank" rel="noopener" class="resource-link" data-category="advocacy" data-keywords="AARO association americans resident overseas paris">
+              <div class="rl-icon">🌍</div>
+              <div class="rl-body"><h4>AARO — Association of Americans Resident Overseas</h4><p>Paris-based association advocating for Americans abroad since 1973</p></div>
+              <span class="rl-badge essential">Essential</span>
+            </a>
+            <a href="https://www.fawco.org" target="_blank" rel="noopener" class="resource-link" data-category="advocacy" data-keywords="FAWCO federation american womens clubs overseas">
+              <div class="rl-icon">🤝</div>
+              <div class="rl-body"><h4>FAWCO — Federation of American Women's Clubs Overseas</h4><p>Network of 60+ American women's clubs across the world</p></div>
+              <span class="rl-badge community">Network</span>
+            </a>
+            <a href="https://www.democratsabroad.org" target="_blank" rel="noopener" class="resource-link" data-category="advocacy" data-keywords="democrats abroad voting registration political">
+              <div class="rl-icon">🗳️</div>
+              <div class="rl-body"><h4>Democrats Abroad</h4><p>The official Democratic Party arm for US citizens living outside the United States</p></div>
+              <span class="rl-badge community">Political</span>
+            </a>
+            <a href="https://www.republicansoverseas.com" target="_blank" rel="noopener" class="resource-link" data-category="advocacy" data-keywords="republicans overseas voting GOP political">
+              <div class="rl-icon">🗳️</div>
+              <div class="rl-body"><h4>Republicans Overseas</h4><p>Republican party network for Americans living abroad</p></div>
+              <span class="rl-badge community">Political</span>
+            </a>
+            <a href="https://www.taxfairnessabroad.org" target="_blank" rel="noopener" class="resource-link" data-category="advocacy" data-keywords="tax fairness americans abroad RBT advocacy">
+              <div class="rl-icon">⚖️</div>
+              <div class="rl-body"><h4>Tax Fairness for Americans Abroad</h4><p>Advocacy group pushing for residence-based taxation reform in Congress</p></div>
+              <span class="rl-badge community">Advocacy</span>
+            </a>
+            <a href="https://overseasvotefoundation.org" target="_blank" rel="noopener" class="resource-link" data-category="advocacy" data-keywords="overseas vote foundation absentee voting">
+              <div class="rl-icon">📨</div>
+              <div class="rl-body"><h4>U.S. Vote Foundation — Overseas Vote</h4><p>Non-partisan voter registration & absentee ballot tools for Americans abroad</p></div>
+              <span class="rl-badge community">Civic</span>
+            </a>
+            <a href="https://acglobal.org" target="_blank" rel="noopener" class="resource-link" data-category="advocacy" data-keywords="ACA global foundation americans citizens education">
+              <div class="rl-icon">🎓</div>
+              <div class="rl-body"><h4>ACA Global Foundation</h4><p>Educational arm of ACA — research, white papers, and policy education</p></div>
+              <span class="rl-badge community">Education</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- ===================== EXPAT PLATFORMS ===================== -->
+        <section class="category-section" id="expat">
+          <h2><span class="cat-emoji">🌍</span> General Expat Platforms <span class="cat-count-badge">8 Resources</span></h2>
+
+          <div class="resources-2col">
+            <a href="https://www.internations.org" target="_blank" rel="noopener" class="resource-link" data-category="community" data-keywords="internations expat network worldwide events">
+              <div class="rl-icon">🌐</div>
+              <div class="rl-body"><h4>InterNations — internations.org</h4><p>The world's largest expat network — 4.6M+ members across 420 cities</p></div>
+              <span class="rl-badge essential">Essential</span>
+            </a>
+            <a href="https://www.expat.com" target="_blank" rel="noopener" class="resource-link" data-category="community" data-keywords="expat.com forums classifieds country guides">
+              <div class="rl-icon">🌍</div>
+              <div class="rl-body"><h4>Expat.com</h4><p>Forums, classifieds and country guides covering 197 countries</p></div>
+              <span class="rl-badge community">Platform</span>
+            </a>
+            <a href="https://www.expatica.com" target="_blank" rel="noopener" class="resource-link" data-category="community" data-keywords="expatica country guides expat news">
+              <div class="rl-icon">🗞️</div>
+              <div class="rl-body"><h4>Expatica</h4><p>News and practical guides for expats in Europe, Middle East, Africa, Asia</p></div>
+              <span class="rl-badge essential">Essential</span>
+            </a>
+            <a href="https://nomadlist.com" target="_blank" rel="noopener" class="resource-link" data-category="community" data-keywords="nomad list digital nomad city ranking cost living">
+              <div class="rl-icon">💻</div>
+              <div class="rl-body"><h4>Nomad List</h4><p>Data-driven city rankings for digital nomads — cost, internet, weather, safety</p></div>
+              <span class="rl-badge community">Tool</span>
+            </a>
+            <a href="https://www.numbeo.com" target="_blank" rel="noopener" class="resource-link" data-category="community" data-keywords="numbeo cost of living comparison cities">
+              <div class="rl-icon">📊</div>
+              <div class="rl-body"><h4>Numbeo</h4><p>Crowdsourced cost-of-living, crime, healthcare and quality of life data</p></div>
+              <span class="rl-badge essential">Essential</span>
+            </a>
+            <a href="https://internationalliving.com" target="_blank" rel="noopener" class="resource-link" data-category="community" data-keywords="international living retirement abroad guide">
+              <div class="rl-icon">🌅</div>
+              <div class="rl-body"><h4>International Living</h4><p>Long-running magazine focused on retirement and lifestyle abroad</p></div>
+              <span class="rl-badge community">Lifestyle</span>
+            </a>
+            <a href="https://www.angloinfo.com" target="_blank" rel="noopener" class="resource-link" data-category="community" data-keywords="angloinfo english speaking expat directories">
+              <div class="rl-icon">📖</div>
+              <div class="rl-body"><h4>AngloInfo</h4><p>English-language expat directories and guides across dozens of countries</p></div>
+              <span class="rl-badge community">Guide</span>
+            </a>
+            <a href="https://www.justlanded.com" target="_blank" rel="noopener" class="resource-link" data-category="community" data-keywords="just landed expat country guides classifieds">
+              <div class="rl-icon">🛬</div>
+              <div class="rl-body"><h4>Just Landed</h4><p>Country guides, expat classifieds, and moving-abroad tools across 60+ countries</p></div>
+              <span class="rl-badge community">Guide</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- ===================== TAX SERVICES ===================== -->
+        <section class="category-section" id="tax-services">
+          <h2><span class="cat-emoji">🧮</span> US Expat Tax Services <span class="cat-count-badge">8 Resources</span></h2>
+
+          <div class="alert alert-gold">
+            <i class="fas fa-exclamation-triangle"></i>
+            <strong>Important:</strong> As an American abroad, you must still file US taxes every year, regardless of where you live. The US is virtually unique in taxing its citizens on worldwide income.
+          </div>
+
+          <div class="resources-2col">
+            <a href="https://www.greenbacktaxservices.com" target="_blank" rel="noopener" class="resource-link" data-keywords="greenback expat tax services preparation cpa">
+              <div class="rl-icon">🧮</div>
+              <div class="rl-body"><h4>Greenback Expat Tax Services</h4><p>Highly reviewed US tax preparation specialists for Americans living abroad</p></div>
+              <span class="rl-badge essential">Essential</span>
+            </a>
+            <a href="https://www.myexpattaxes.com" target="_blank" rel="noopener" class="resource-link" data-keywords="my expat taxes online filing service">
+              <div class="rl-icon">💻</div>
+              <div class="rl-body"><h4>MyExpatTaxes</h4><p>Online US expat tax filing — affordable, straightforward, software-driven</p></div>
+              <span class="rl-badge community">Service</span>
+            </a>
+            <a href="https://brighttax.com" target="_blank" rel="noopener" class="resource-link" data-keywords="bright tax expat us cpa firm">
+              <div class="rl-icon">📝</div>
+              <div class="rl-body"><h4>Bright!Tax</h4><p>US CPA firm specializing entirely in tax for Americans abroad</p></div>
+              <span class="rl-badge community">Service</span>
+            </a>
+            <a href="https://www.taxesforexpats.com" target="_blank" rel="noopener" class="resource-link" data-keywords="taxes for expats cpa us abroad TFX">
+              <div class="rl-icon">🗃️</div>
+              <div class="rl-body"><h4>Taxes for Expats (TFX)</h4><p>20+ years of experience preparing US tax returns for Americans worldwide</p></div>
+              <span class="rl-badge community">Service</span>
+            </a>
+            <a href="https://1040abroad.com" target="_blank" rel="noopener" class="resource-link" data-keywords="1040 abroad streamlined expat tax FATCA">
+              <div class="rl-icon">📁</div>
+              <div class="rl-body"><h4>1040 Abroad</h4><p>Specialists in streamlined procedures, FATCA reporting, and Form 8938</p></div>
+              <span class="rl-badge community">Service</span>
+            </a>
+            <a href="https://www.hrblock.com/expat-tax-preparation" target="_blank" rel="noopener" class="resource-link" data-keywords="hr block expat tax preparation americans abroad">
+              <div class="rl-icon">📋</div>
+              <div class="rl-body"><h4>H&R Block Expat Tax Services</h4><p>Big-name brand offering expat tax filing with country-specific guides</p></div>
+              <span class="rl-badge community">Service</span>
+            </a>
+            <a href="https://www.expattaxonline.com" target="_blank" rel="noopener" class="resource-link" data-keywords="expat tax online filing guide">
+              <div class="rl-icon">🌐</div>
+              <div class="rl-body"><h4>Expat Tax Online</h4><p>2025 filing guides, FBAR penalties, complete expat tax handbook</p></div>
+              <span class="rl-badge community">Guide</span>
+            </a>
+            <a href="https://www.expatustax.com" target="_blank" rel="noopener" class="resource-link" data-keywords="expat us tax fbar fatca filing service">
+              <div class="rl-icon">📊</div>
+              <div class="rl-body"><h4>Expat US Tax</h4><p>FBAR, FATCA and full Form 1040 filing — niche provider for expats</p></div>
+              <span class="rl-badge community">Service</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- ===================== BANKING & MONEY ===================== -->
+        <section class="category-section" id="banking">
+          <h2><span class="cat-emoji">🏦</span> Banking & Money <span class="cat-count-badge">8 Resources</span></h2>
+
+          <div class="alert alert-gold">
+            <i class="fas fa-exclamation-triangle"></i>
+            <strong>FATCA Reality:</strong> Many foreign banks refuse Americans due to FATCA reporting burdens. The resources below are the proven workarounds — US-friendly multi-currency accounts, specialist banks, and brokerages.
+          </div>
+
+          <div class="resources-2col">
+            <a href="https://wise.com" target="_blank" rel="noopener" class="resource-link" data-keywords="wise transferwise multi currency international transfer">
+              <div class="rl-icon">💸</div>
+              <div class="rl-body"><h4>Wise (formerly TransferWise)</h4><p>Multi-currency account, low-fee international transfers at real exchange rates</p></div>
+              <span class="rl-badge essential">Essential</span>
+            </a>
+            <a href="https://www.revolut.com" target="_blank" rel="noopener" class="resource-link" data-keywords="revolut digital bank multi currency expat">
+              <div class="rl-icon">📱</div>
+              <div class="rl-body"><h4>Revolut</h4><p>Multi-currency neobank — popular with expats for travel & FX</p></div>
+              <span class="rl-badge community">Neobank</span>
+            </a>
+            <a href="https://www.schwab.com/international" target="_blank" rel="noopener" class="resource-link" data-keywords="charles schwab international expat brokerage atm fees">
+              <div class="rl-icon">🇺🇸</div>
+              <div class="rl-body"><h4>Charles Schwab International</h4><p>Best US brokerage for expats — no ATM fees worldwide, FDIC insured</p></div>
+              <span class="rl-badge essential">Essential</span>
+            </a>
+            <a href="https://www.interactivebrokers.com" target="_blank" rel="noopener" class="resource-link" data-keywords="interactive brokers IBKR investing expat">
+              <div class="rl-icon">📈</div>
+              <div class="rl-body"><h4>Interactive Brokers (IBKR)</h4><p>Brokerage that still serves Americans abroad in most countries — multi-currency</p></div>
+              <span class="rl-badge essential">Essential</span>
+            </a>
+            <a href="https://www.sdfcu.org" target="_blank" rel="noopener" class="resource-link" data-keywords="state department federal credit union expat americans abroad">
+              <div class="rl-icon">🛡️</div>
+              <div class="rl-body"><h4>State Department Federal Credit Union (SDFCU)</h4><p>US credit union welcoming to Americans abroad — accounts for AARO and ACA members</p></div>
+              <span class="rl-badge community">Bank</span>
+            </a>
+            <a href="https://www.ofx.com" target="_blank" rel="noopener" class="resource-link" data-keywords="ofx large international transfer foreign exchange">
+              <div class="rl-icon">🔄</div>
+              <div class="rl-body"><h4>OFX</h4><p>International money transfers — strong rates for larger amounts than Wise</p></div>
+              <span class="rl-badge community">Service</span>
+            </a>
+            <a href="https://www.fidelity.com/customer-service/customer-service-international-investing" target="_blank" rel="noopener" class="resource-link" data-keywords="fidelity international expat investing brokerage">
+              <div class="rl-icon">📊</div>
+              <div class="rl-body"><h4>Fidelity — International Investing Info</h4><p>Fidelity's US brokerage rules for clients living abroad</p></div>
+              <span class="rl-badge community">Brokerage</span>
+            </a>
+            <a href="https://www.currencyfair.com" target="_blank" rel="noopener" class="resource-link" data-keywords="currency fair peer to peer FX">
+              <div class="rl-icon">🪙</div>
+              <div class="rl-body"><h4>CurrencyFair</h4><p>Peer-to-peer currency exchange — competitive rates for expat transfers</p></div>
+              <span class="rl-badge community">Service</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- ===================== HEALTH ===================== -->
+        <section class="category-section" id="health">
+          <h2><span class="cat-emoji">🏥</span> International Health Insurance <span class="cat-count-badge">8 Resources</span></h2>
+
+          <div class="resources-2col">
+            <a href="https://www.cigna.com/individuals-families/insurance-for-individuals/expat-insurance" target="_blank" rel="noopener" class="resource-link" data-keywords="cigna global expat health insurance international">
+              <div class="rl-icon">🌐</div>
+              <div class="rl-body"><h4>Cigna Global</h4><p>One of the most popular international health insurance plans for Americans abroad</p></div>
+              <span class="rl-badge essential">Essential</span>
+            </a>
+            <a href="https://www.allianzcare.com" target="_blank" rel="noopener" class="resource-link" data-keywords="allianz care international expat health insurance">
+              <div class="rl-icon">🏥</div>
+              <div class="rl-body"><h4>Allianz Care</h4><p>Major global insurer — comprehensive expat coverage and worldwide network</p></div>
+              <span class="rl-badge community">Insurance</span>
+            </a>
+            <a href="https://www.geo-blue.com" target="_blank" rel="noopener" class="resource-link" data-keywords="geoblue international health insurance us expat">
+              <div class="rl-icon">💙</div>
+              <div class="rl-body"><h4>GeoBlue</h4><p>BlueCross BlueShield-affiliated international health for US citizens abroad</p></div>
+              <span class="rl-badge community">Insurance</span>
+            </a>
+            <a href="https://www.imglobal.com" target="_blank" rel="noopener" class="resource-link" data-keywords="img global international medical expat insurance">
+              <div class="rl-icon">🌍</div>
+              <div class="rl-body"><h4>IMG Global</h4><p>International Medical Group — broad set of expat plans by length of stay</p></div>
+              <span class="rl-badge community">Insurance</span>
+            </a>
+            <a href="https://safetywing.com" target="_blank" rel="noopener" class="resource-link" data-keywords="safetywing nomad insurance digital nomad health">
+              <div class="rl-icon">🦺</div>
+              <div class="rl-body"><h4>SafetyWing</h4><p>Subscription health insurance designed for digital nomads and remote workers</p></div>
+              <span class="rl-badge community">Insurance</span>
+            </a>
+            <a href="https://www.bupaglobal.com" target="_blank" rel="noopener" class="resource-link" data-keywords="bupa global expat international health insurance">
+              <div class="rl-icon">⚕️</div>
+              <div class="rl-body"><h4>Bupa Global</h4><p>Premium international health insurance favored in UK, EU and Asia markets</p></div>
+              <span class="rl-badge community">Insurance</span>
+            </a>
+            <a href="https://www.aetna.com/individuals-families/international-health.html" target="_blank" rel="noopener" class="resource-link" data-keywords="aetna international expat health insurance abroad">
+              <div class="rl-icon">💼</div>
+              <div class="rl-body"><h4>Aetna International</h4><p>US-based insurer with international plans available to Americans living abroad</p></div>
+              <span class="rl-badge community">Insurance</span>
+            </a>
+            <a href="https://www.worldnomads.com" target="_blank" rel="noopener" class="resource-link" data-keywords="world nomads travel insurance backpacker">
+              <div class="rl-icon">🎒</div>
+              <div class="rl-body"><h4>World Nomads</h4><p>Travel insurance with optional medical for shorter trips and adventure travel</p></div>
+              <span class="rl-badge community">Travel</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- ===================== REDDIT ===================== -->
+        <section class="category-section" id="reddit">
+          <h2><span class="cat-emoji">💬</span> Reddit Communities <span class="cat-count-badge">7 Resources</span></h2>
+
+          <div class="resources-2col">
+            <a href="https://www.reddit.com/r/expats/" target="_blank" rel="noopener" class="resource-link" data-category="community" data-keywords="reddit r/expats community expat life worldwide">
+              <div class="rl-icon">💬</div>
+              <div class="rl-body"><h4>r/expats</h4><p>The largest general expat subreddit — global, active and well-moderated</p></div>
+              <span class="rl-badge essential">Essential</span>
+            </a>
+            <a href="https://www.reddit.com/r/AmerExit/" target="_blank" rel="noopener" class="resource-link" data-category="community" data-keywords="reddit AmerExit americans leaving us emigration">
+              <div class="rl-icon">🚪</div>
+              <div class="rl-body"><h4>r/AmerExit</h4><p>Americans planning to leave the US — research, country comparisons, action plans</p></div>
+              <span class="rl-badge essential">Essential</span>
+            </a>
+            <a href="https://www.reddit.com/r/IWantOut/" target="_blank" rel="noopener" class="resource-link" data-category="community" data-keywords="reddit IWantOut emigration immigration ask anything">
+              <div class="rl-icon">🌍</div>
+              <div class="rl-body"><h4>r/IWantOut</h4><p>Q&A community for emigration logistics, visas, and country selection</p></div>
+              <span class="rl-badge community">Forum</span>
+            </a>
+            <a href="https://www.reddit.com/r/USExpatTaxes/" target="_blank" rel="noopener" class="resource-link" data-category="community" data-keywords="reddit US expat taxes IRS FBAR FATCA">
+              <div class="rl-icon">💸</div>
+              <div class="rl-body"><h4>r/USExpatTaxes</h4><p>Focused community for US tax questions specific to citizens abroad</p></div>
+              <span class="rl-badge essential">Essential</span>
+            </a>
+            <a href="https://www.reddit.com/r/ExpatFIRE/" target="_blank" rel="noopener" class="resource-link" data-category="community" data-keywords="reddit ExpatFIRE early retirement abroad financial independence">
+              <div class="rl-icon">🌴</div>
+              <div class="rl-body"><h4>r/ExpatFIRE</h4><p>Financial independence and early retirement abroad — strategies, country picks</p></div>
+              <span class="rl-badge community">Forum</span>
+            </a>
+            <a href="https://www.reddit.com/r/AmericansAbroad/" target="_blank" rel="noopener" class="resource-link" data-category="community" data-keywords="reddit americans abroad community discussion">
+              <div class="rl-icon">🇺🇸</div>
+              <div class="rl-body"><h4>r/AmericansAbroad</h4><p>Smaller but focused subreddit for Americans living outside the United States</p></div>
+              <span class="rl-badge community">Forum</span>
+            </a>
+            <a href="https://www.reddit.com/r/digitalnomad/" target="_blank" rel="noopener" class="resource-link" data-category="community" data-keywords="reddit digital nomad remote work travel">
+              <div class="rl-icon">💻</div>
+              <div class="rl-body"><h4>r/digitalnomad</h4><p>Remote workers worldwide — visa hacks, internet, coworking, locations</p></div>
+              <span class="rl-badge community">Forum</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- ===================== FACEBOOK ===================== -->
+        <section class="category-section" id="facebook">
+          <h2><span class="cat-emoji">👥</span> Facebook Country Groups <span class="cat-count-badge">10 Groups</span></h2>
+
+          <div class="resources-2col">
+            <a href="https://www.facebook.com/groups/AmericansAndFriendsPT" target="_blank" rel="noopener" class="resource-link" data-category="community" data-keywords="americans portugal lisbon porto facebook group">
+              <div class="rl-icon">🇵🇹</div>
+              <div class="rl-body"><h4>Americans & Friends Portugal</h4><p>Major group for Americans in Portugal — D7, NHR, Lisbon and Porto</p></div>
+              <span class="rl-badge essential">Essential</span>
+            </a>
+            <a href="https://www.facebook.com/groups/americansinuk" target="_blank" rel="noopener" class="resource-link" data-category="community" data-keywords="americans uk britain london facebook group">
+              <div class="rl-icon">🇬🇧</div>
+              <div class="rl-body"><h4>Americans in the UK</h4><p>Active community for Americans living in the United Kingdom</p></div>
+              <span class="rl-badge community">Group</span>
+            </a>
+            <a href="https://www.facebook.com/groups/expatsmexico" target="_blank" rel="noopener" class="resource-link" data-category="community" data-keywords="americans mexico expats facebook group">
+              <div class="rl-icon">🇲🇽</div>
+              <div class="rl-body"><h4>Expats in Mexico (Americans)</h4><p>Largest American expat communities in Mexico — CDMX, Mérida, Playa</p></div>
+              <span class="rl-badge community">Group</span>
+            </a>
+            <a href="https://www.facebook.com/groups/AmericansInGermany" target="_blank" rel="noopener" class="resource-link" data-category="community" data-keywords="americans germany berlin munich facebook group">
+              <div class="rl-icon">🇩🇪</div>
+              <div class="rl-body"><h4>Americans in Germany</h4><p>Berlin, Munich, Frankfurt and beyond — active US community in Germany</p></div>
+              <span class="rl-badge community">Group</span>
+            </a>
+            <a href="https://www.facebook.com/groups/AmericansLivingItaly" target="_blank" rel="noopener" class="resource-link" data-category="community" data-keywords="americans italy rome milan facebook group">
+              <div class="rl-icon">🇮🇹</div>
+              <div class="rl-body"><h4>Americans Living in Italy</h4><p>Visas, citizenship by descent, regional advice — Rome, Milan, Florence</p></div>
+              <span class="rl-badge community">Group</span>
+            </a>
+            <a href="https://www.facebook.com/groups/AmericansLivingInSpain" target="_blank" rel="noopener" class="resource-link" data-category="community" data-keywords="americans spain madrid barcelona facebook group">
+              <div class="rl-icon">🇪🇸</div>
+              <div class="rl-body"><h4>Americans Living in Spain</h4><p>NLV, digital nomad visa, Madrid, Barcelona, Valencia community</p></div>
+              <span class="rl-badge community">Group</span>
+            </a>
+            <a href="https://www.facebook.com/groups/AmericansInJapan" target="_blank" rel="noopener" class="resource-link" data-category="community" data-keywords="americans japan tokyo facebook group">
+              <div class="rl-icon">🇯🇵</div>
+              <div class="rl-body"><h4>Americans in Japan</h4><p>Tokyo, Osaka, Kyoto — visa, work, daily life community</p></div>
+              <span class="rl-badge community">Group</span>
+            </a>
+            <a href="https://www.facebook.com/groups/expatsincostarica" target="_blank" rel="noopener" class="resource-link" data-category="community" data-keywords="americans costa rica expats facebook group">
+              <div class="rl-icon">🇨🇷</div>
+              <div class="rl-body"><h4>Expats in Costa Rica</h4><p>Pensionado visa, retirement, healthcare — major American population</p></div>
+              <span class="rl-badge community">Group</span>
+            </a>
+            <a href="https://www.facebook.com/groups/AmericansInCanada" target="_blank" rel="noopener" class="resource-link" data-category="community" data-keywords="americans canada toronto vancouver facebook group">
+              <div class="rl-icon">🇨🇦</div>
+              <div class="rl-body"><h4>Americans in Canada</h4><p>Toronto, Vancouver, Montreal — immigration, dual filing, daily life</p></div>
+              <span class="rl-badge community">Group</span>
+            </a>
+            <a href="https://www.facebook.com/groups/americansinparis" target="_blank" rel="noopener" class="resource-link" data-category="community" data-keywords="americans france paris facebook group">
+              <div class="rl-icon">🇫🇷</div>
+              <div class="rl-body"><h4>Americans in Paris (Facebook)</h4><p>Long-running active community of Americans in France's capital</p></div>
+              <span class="rl-badge community">Group</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- ===================== NEWS & MEDIA ===================== -->
+        <section class="category-section" id="news-media">
+          <h2><span class="cat-emoji">📰</span> News & Media <span class="cat-count-badge">8 Sources</span></h2>
+
+          <div class="resources-2col">
+            <a href="https://www.bbc.com/news/world/us_and_canada" target="_blank" rel="noopener" class="resource-link" data-keywords="BBC us canada news world view">
+              <div class="rl-icon">🌎</div>
+              <div class="rl-body"><h4>BBC — US & Canada</h4><p>Outside-the-bubble view of US news, written for an international audience</p></div>
+              <span class="rl-badge essential">Essential</span>
+            </a>
+            <a href="https://www.theguardian.com/us-news" target="_blank" rel="noopener" class="resource-link" data-keywords="guardian us news politics world view">
+              <div class="rl-icon">📰</div>
+              <div class="rl-body"><h4>The Guardian US</h4><p>UK-based, US-news section — strong international perspective</p></div>
+              <span class="rl-badge essential">Essential</span>
+            </a>
+            <a href="https://www.reuters.com/world/" target="_blank" rel="noopener" class="resource-link" data-keywords="reuters world news global expat">
+              <div class="rl-icon">📡</div>
+              <div class="rl-body"><h4>Reuters World</h4><p>Wire service news from around the globe — facts-first reporting</p></div>
+              <span class="rl-badge community">News</span>
+            </a>
+            <a href="https://www.stripes.com" target="_blank" rel="noopener" class="resource-link" data-keywords="stars and stripes military americans abroad">
+              <div class="rl-icon">🏳️</div>
+              <div class="rl-body"><h4>Stars and Stripes</h4><p>News by and for Americans abroad — military and civilian, worldwide</p></div>
+              <span class="rl-badge community">News</span>
+            </a>
+            <a href="https://www.thelocal.com" target="_blank" rel="noopener" class="resource-link" data-keywords="the local europe english news germany france italy spain">
+              <div class="rl-icon">🗞️</div>
+              <div class="rl-body"><h4>The Local — European Network</h4><p>English-language local news for France, Germany, Spain, Italy, Sweden, Austria, Switzerland, Denmark</p></div>
+              <span class="rl-badge essential">Essential</span>
+            </a>
+            <a href="https://www.politico.eu" target="_blank" rel="noopener" class="resource-link" data-keywords="politico europe brussels policy news">
+              <div class="rl-icon">🏛️</div>
+              <div class="rl-body"><h4>Politico Europe</h4><p>Policy and politics across Europe — essential if you live in the EU</p></div>
+              <span class="rl-badge community">News</span>
+            </a>
+            <a href="https://www.economist.com" target="_blank" rel="noopener" class="resource-link" data-keywords="economist global news politics business">
+              <div class="rl-icon">📊</div>
+              <div class="rl-body"><h4>The Economist</h4><p>Weekly global news magazine — gold standard for international expats</p></div>
+              <span class="rl-badge community">News</span>
+            </a>
+            <a href="https://www.ft.com" target="_blank" rel="noopener" class="resource-link" data-keywords="financial times FT business news global">
+              <div class="rl-icon">💼</div>
+              <div class="rl-body"><h4>Financial Times</h4><p>Global business and financial news — essential for expat professionals</p></div>
+              <span class="rl-badge community">News</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- ===================== YOUTUBE & PODCASTS ===================== -->
+        <section class="category-section" id="video-podcasts">
+          <h2><span class="cat-emoji">🎧</span> YouTube Channels & Podcasts <span class="cat-count-badge">8 Sources</span></h2>
+
+          <div class="sub-category">
+            <h4>YouTube Channels</h4>
+            <div class="resources-2col">
+              <a href="https://www.youtube.com/@ExpatsEverywhere" target="_blank" rel="noopener" class="resource-link" data-keywords="expats everywhere youtube portugal moving abroad">
+                <div class="rl-icon">📺</div>
+                <div class="rl-body"><h4>ExpatsEverywhere</h4><p>Portugal-focused but globally relevant — practical move-abroad content</p></div>
+                <span class="rl-badge community">YouTube</span>
+              </a>
+              <a href="https://www.youtube.com/@TravelingwithKristin" target="_blank" rel="noopener" class="resource-link" data-keywords="traveling with kristin nomad youtube expat lifestyle">
+                <div class="rl-icon">✈️</div>
+                <div class="rl-body"><h4>Traveling with Kristin</h4><p>Digital-nomad lifestyle, country reviews, residency programs</p></div>
+                <span class="rl-badge community">YouTube</span>
+              </a>
+              <a href="https://www.youtube.com/@OurRichJourney" target="_blank" rel="noopener" class="resource-link" data-keywords="our rich journey FIRE americans abroad portugal">
+                <div class="rl-icon">💰</div>
+                <div class="rl-body"><h4>Our Rich Journey</h4><p>African-American FIRE family who relocated to Portugal — finance + lifestyle</p></div>
+                <span class="rl-badge community">YouTube</span>
+              </a>
+              <a href="https://www.youtube.com/@nomadcapitalist" target="_blank" rel="noopener" class="resource-link" data-keywords="nomad capitalist tax residency citizenship">
+                <div class="rl-icon">🌐</div>
+                <div class="rl-body"><h4>Nomad Capitalist</h4><p>Tax residency, second passports, offshore banking — high-net-worth lens</p></div>
+                <span class="rl-badge community">YouTube</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="sub-category">
+            <h4>Podcasts</h4>
+            <div class="resources-2col">
+              <a href="https://expatmoneyshow.com" target="_blank" rel="noopener" class="resource-link" data-keywords="expat money show podcast tax planning">
+                <div class="rl-icon">🎙️</div>
+                <div class="rl-body"><h4>Expat Money Show</h4><p>Podcast on offshore strategy, tax planning, and freedom-oriented expats</p></div>
+                <span class="rl-badge community">Podcast</span>
+              </a>
+              <a href="https://www.expatempire.com/podcast/" target="_blank" rel="noopener" class="resource-link" data-keywords="expat empire podcast moving abroad guests">
+                <div class="rl-icon">🎧</div>
+                <div class="rl-body"><h4>Expat Empire Podcast</h4><p>Interviews with Americans who moved abroad — country-by-country perspectives</p></div>
+                <span class="rl-badge community">Podcast</span>
+              </a>
+              <a href="https://www.americansabroad.org/voice/" target="_blank" rel="noopener" class="resource-link" data-keywords="ACA voice podcast americans abroad advocacy">
+                <div class="rl-icon">📢</div>
+                <div class="rl-body"><h4>ACA Voice</h4><p>American Citizens Abroad podcast covering advocacy, taxes and policy</p></div>
+                <span class="rl-badge community">Podcast</span>
+              </a>
+              <a href="https://www.expatfocus.com/expat-focus-podcast" target="_blank" rel="noopener" class="resource-link" data-keywords="expat focus podcast lifestyle moving">
+                <div class="rl-icon">🌍</div>
+                <div class="rl-body"><h4>Expat Focus Podcast</h4><p>Long-running expat podcast covering daily life and country guides</p></div>
+                <span class="rl-badge community">Podcast</span>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================== EVENTS & MEETUPS ===================== -->
+        <section class="category-section" id="events">
+          <h2><span class="cat-emoji">📅</span> Events & Meetups <span class="cat-count-badge">6 Sources</span></h2>
+
+          <div class="resources-2col">
+            <a href="https://www.internations.org/events" target="_blank" rel="noopener" class="resource-link" data-category="community" data-keywords="internations events monthly worldwide expat">
+              <div class="rl-icon">🌐</div>
+              <div class="rl-body"><h4>InterNations Events</h4><p>Monthly expat events in 420+ cities worldwide — easy first step</p></div>
+              <span class="rl-badge essential">Essential</span>
+            </a>
+            <a href="https://www.meetup.com/topics/american-expats/" target="_blank" rel="noopener" class="resource-link" data-category="community" data-keywords="meetup american expat groups events worldwide">
+              <div class="rl-icon">📅</div>
+              <div class="rl-body"><h4>Meetup — American Expat Groups</h4><p>Find local Americans-abroad meetup groups in your city</p></div>
+              <span class="rl-badge essential">Essential</span>
+            </a>
+            <a href="leaders.html" class="resource-link" style="background:linear-gradient(135deg, rgba(191,10,48,0.08), rgba(10,36,99,0.05)); border-color:rgba(191,10,48,0.3);" data-keywords="american abroad local leaders meetups program">
+              <div class="rl-icon">⭐</div>
+              <div class="rl-body"><h4>AmericanAbroad Local Leaders</h4><p>Our own monthly meetups in cities worldwide — apply to lead one yourself</p></div>
+              <span class="rl-badge essential">Our Program</span>
+            </a>
+            <a href="https://www.eventbrite.com/d/online/american-expat/" target="_blank" rel="noopener" class="resource-link" data-category="community" data-keywords="eventbrite american expat events online">
+              <div class="rl-icon">🎟️</div>
+              <div class="rl-body"><h4>Eventbrite — Expat Events</h4><p>Search Eventbrite for local Americans-abroad events and conferences</p></div>
+              <span class="rl-badge community">Events</span>
+            </a>
+            <a href="https://www.democratsabroad.org/events" target="_blank" rel="noopener" class="resource-link" data-category="advocacy" data-keywords="democrats abroad events meetups voter">
+              <div class="rl-icon">🗳️</div>
+              <div class="rl-body"><h4>Democrats Abroad — Local Events</h4><p>Country-chapter events, voter assistance, and political gatherings</p></div>
+              <span class="rl-badge community">Events</span>
+            </a>
+            <a href="https://www.fawco.org/clubs" target="_blank" rel="noopener" class="resource-link" data-category="community" data-keywords="fawco clubs american women overseas events">
+              <div class="rl-icon">🤝</div>
+              <div class="rl-body"><h4>FAWCO Member Clubs</h4><p>Local American women's clubs hosting events in dozens of cities</p></div>
+              <span class="rl-badge community">Network</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- ===================== US TAXES REFERENCE ===================== -->
+        <section class="category-section" id="taxes">
+          <h2><span class="cat-emoji">💸</span> US Taxes Reference <span class="cat-count-badge">8 Resources</span></h2>
+
+          <div class="resources-2col">
+            <a href="https://www.irs.gov/forms-pubs/about-form-2555" target="_blank" rel="noopener" class="resource-link" data-category="official" data-keywords="form 2555 foreign earned income exclusion FEIE">
+              <div class="rl-icon">📋</div>
+              <div class="rl-body"><h4>IRS Form 2555 — Foreign Earned Income</h4><p>Foreign earned income exclusion — the cornerstone form for US expats</p></div>
+              <span class="rl-badge essential">Essential</span>
+            </a>
+            <a href="https://www.irs.gov/forms-pubs/about-form-1116" target="_blank" rel="noopener" class="resource-link" data-category="official" data-keywords="form 1116 foreign tax credit">
+              <div class="rl-icon">🧾</div>
+              <div class="rl-body"><h4>IRS Form 1116 — Foreign Tax Credit</h4><p>Claim a credit for foreign taxes paid — alternative to FEIE for higher earners</p></div>
+              <span class="rl-badge official">Official</span>
+            </a>
+            <a href="https://www.irs.gov/forms-pubs/about-form-8938" target="_blank" rel="noopener" class="resource-link" data-category="official" data-keywords="form 8938 fatca foreign assets specified">
+              <div class="rl-icon">📑</div>
+              <div class="rl-body"><h4>IRS Form 8938 — Statement of Foreign Assets</h4><p>FATCA reporting form — required when foreign assets exceed thresholds</p></div>
+              <span class="rl-badge official">Official</span>
+            </a>
+            <a href="https://www.irs.gov/individuals/international-taxpayers/streamlined-filing-compliance-procedures" target="_blank" rel="noopener" class="resource-link" data-category="official" data-keywords="streamlined filing compliance procedures non-filer americans abroad">
+              <div class="rl-icon">📝</div>
+              <div class="rl-body"><h4>IRS Streamlined Procedures</h4><p>Get back in compliance penalty-free if you didn't know you had to file</p></div>
+              <span class="rl-badge essential">Essential</span>
+            </a>
+            <a href="https://www.irs.gov/businesses/corporations/foreign-account-tax-compliance-act-fatca" target="_blank" rel="noopener" class="resource-link" data-category="official" data-keywords="fatca foreign account tax compliance act overview">
+              <div class="rl-icon">📜</div>
+              <div class="rl-body"><h4>IRS — FATCA Overview & Resources</h4><p>Comprehensive FATCA guidance for individuals and foreign banks</p></div>
+              <span class="rl-badge official">Official</span>
+            </a>
+            <a href="https://www.taxpayeradvocate.irs.gov" target="_blank" rel="noopener" class="resource-link" data-category="official" data-keywords="taxpayer advocate service IRS help expat">
+              <div class="rl-icon">🛡️</div>
+              <div class="rl-body"><h4>Taxpayer Advocate Service (TAS)</h4><p>Independent IRS advocate — help when normal channels fail expats</p></div>
+              <span class="rl-badge official">Official</span>
+            </a>
+            <a href="https://www.irs.gov/treaties" target="_blank" rel="noopener" class="resource-link" data-category="official" data-keywords="us tax treaties bilateral countries">
+              <div class="rl-icon">🤝</div>
+              <div class="rl-body"><h4>IRS — Tax Treaty Database</h4><p>Searchable archive of all US bilateral tax treaties</p></div>
+              <span class="rl-badge official">Official</span>
+            </a>
+            <a href="https://www.irs.gov/forms-pubs/about-form-8854" target="_blank" rel="noopener" class="resource-link" data-category="official" data-keywords="form 8854 expatriation initial annual">
+              <div class="rl-icon">📄</div>
+              <div class="rl-body"><h4>IRS Form 8854 — Expatriation Statement</h4><p>Required form when renouncing US citizenship — exit tax calculations</p></div>
+              <span class="rl-badge official">Official</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- CTA -->
+        <div style="background:linear-gradient(135deg, var(--navy), var(--navy-light)); border-radius:var(--radius-lg); padding:40px; text-align:center; margin-top:40px;">
+          <h3 style="color:var(--red); margin-bottom:12px;">Are You an American Professional Serving Expats?</h3>
+          <p style="color:rgba(255,255,255,0.8); margin-bottom:24px; max-width:540px; margin-left:auto; margin-right:auto;">
+            Lawyer, tax advisor, financial planner, immigration consultant, relocation specialist or real estate pro? Partner with AmericanAbroad and reach Americans in 100+ countries.
+          </p>
+          <a href="partners.html" class="btn btn-primary btn-lg">Join the Partner Network →</a>
+        </div>
+
+      </main>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-main">American<span>Abroad</span></div>
+        <p>AmericanAbroad.net — A Gershon Consulting Initiative — The complete resource hub for Americans living abroad.</p>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#government">US Government</a></li>
+          <li><a href="#advocacy">Advocacy Orgs</a></li>
+          <li><a href="#banking">Banking</a></li>
+          <li><a href="#tax-services">Tax Services</a></li>
+          <li><a href="#health">Health Insurance</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Communities</h4>
+        <ul>
+          <li><a href="#expat">Expat Platforms</a></li>
+          <li><a href="#reddit">Reddit</a></li>
+          <li><a href="#facebook">Facebook Groups</a></li>
+          <li><a href="#events">Events</a></li>
+          <li><a href="leaders.html">Local Leaders</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Gershon Consulting</h4>
+        <ul>
+          <li><a href="partners.html">Partner Program</a></li>
+          <li><a href="newsletter.html">Newsletter</a></li>
+          <li><a href="index.html">Home</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 AmericanAbroad.net — A <strong style="color:var(--red)">Gershon Consulting</strong> Initiative.</p>
+      <div class="footer-legal"><a href="#">Privacy</a><a href="#">Legal</a></div>
+    </div>
+  </div>
+</footer>
+
+<button id="back-to-top"><i class="fas fa-chevron-up"></i></button>
+<div class="toast" id="toast"></div>
+<script src="js/main.js"></script>
+</body>
+</html>

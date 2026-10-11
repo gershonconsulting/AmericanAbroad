@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekly Digest — AmericanAbroad.net | Live News for Americans Worldwide</title>
+  <meta name="description" content="Live curated news for Americans living abroad — auto-updated from ACA, AARO, IRS, BBC, Reuters, Greenback and more: policy, expat life, US taxes, US news worldwide.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .feed-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+    .feed-grid.list-view { grid-template-columns: 1fr; }
+    .feed-card { background: var(--white); border-radius: var(--radius-lg); border: 1px solid var(--light-grey); overflow: hidden; transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition); display: flex; flex-direction: column; }
+    .feed-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: rgba(191,10,48,0.3); }
+    .feed-card-img { height: 160px; background-size: cover; background-position: center; background-color: var(--light-grey); }
+    .feed-card-body { padding: 18px 20px 20px; flex: 1; display: flex; flex-direction: column; }
+    .feed-card-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+    .feed-source-badge { font-size: 0.72rem; font-weight: 700; padding: 3px 9px; border-radius: 20px; white-space: nowrap; }
+    .feed-tag { font-size: 0.7rem; background: var(--light-grey); color: var(--navy); padding: 2px 8px; border-radius: 20px; font-weight: 600; }
+    .feed-time { font-size: 0.72rem; color: var(--mid-grey); margin-left: auto; white-space: nowrap; }
+    .feed-card-title { font-family: var(--font-serif); font-size: 1rem; line-height: 1.4; margin-bottom: 8px; }
+    .feed-card-title a { color: var(--navy); transition: color var(--transition); }
+    .feed-card-title a:hover { color: var(--red); }
+    .feed-card-desc { font-size: 0.83rem; color: var(--mid-grey); line-height: 1.6; margin-bottom: 14px; flex: 1; }
+    .feed-read-more { font-size: 0.8rem; font-weight: 600; color: var(--red); display: flex; align-items: center; gap: 6px; margin-top: auto; }
+    .feed-read-more i { font-size: 0.7rem; transition: transform var(--transition); }
+    .feed-read-more:hover i { transform: translateX(3px); }
+    .feed-grid.list-view .feed-card { flex-direction: row; }
+    .feed-grid.list-view .feed-card-img { width: 140px; min-width: 140px; height: auto; }
+    .feed-skeleton { background: var(--white); border-radius: var(--radius-lg); border: 1px solid var(--light-grey); padding: 20px; }
+    .skel { background: linear-gradient(90deg, var(--light-grey) 25%, #e8eaf0 50%, var(--light-grey) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 6px; margin-bottom: 10px; }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+    .skel-meta { height: 22px; width: 55%; }
+    .skel-title { height: 18px; width: 100%; }
+    .skel-title.short { width: 75%; }
+    .skel-desc { height: 14px; width: 100%; }
+    .skel-desc.short { width: 65%; }
+    .feed-error { text-align: center; padding: 40px; grid-column: 1/-1; }
+    .channel-section { margin-bottom: 56px; }
+    .channel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 2px solid var(--light-grey); flex-wrap: wrap; gap: 12px; }
+    .channel-header h2 { font-size: 1.3rem; display: flex; align-items: center; gap: 10px; }
+    .channel-count { font-size: 0.75rem; background: rgba(191,10,48,0.12); color: #8A0820; padding: 3px 10px; border-radius: 20px; font-family: var(--font-main); font-weight: 600; }
+    .channel-source-list { display: flex; gap: 8px; flex-wrap: wrap; }
+    .channel-source-pill { font-size: 0.72rem; padding: 4px 12px; border-radius: 20px; border: 1px solid var(--light-grey); color: var(--mid-grey); }
+    .news-filter-bar { background: var(--white); border-bottom: 1px solid var(--light-grey); padding: 14px 0; position: sticky; top: 70px; z-index: 100; box-shadow: 0 2px 8px rgba(10,36,99,0.05); }
+    .filter-bar-inner { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: space-between; }
+    .filter-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+    .filter-tab { padding: 7px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 600; cursor: pointer; border: 1.5px solid var(--light-grey); background: none; color: var(--mid-grey); font-family: var(--font-main); transition: all var(--transition); }
+    .filter-tab:hover { border-color: var(--red); color: var(--navy); }
+    .filter-tab.active { background: var(--navy); border-color: var(--navy); color: var(--white); }
+    .view-toggle { display: flex; gap: 4px; }
+    .view-btn { width: 34px; height: 34px; border: 1.5px solid var(--light-grey); background: none; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--mid-grey); transition: all var(--transition); font-size: 0.9rem; }
+    .view-btn.active, .view-btn:hover { background: var(--navy); border-color: var(--navy); color: var(--white); }
+    .live-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(46,204,113,0.1); border: 1px solid rgba(46,204,113,0.3); color: #1a7a49; font-size: 0.75rem; font-weight: 700; padding: 4px 12px; border-radius: 20px; }
+    .live-dot { width: 7px; height: 7px; background: #2ECC71; border-radius: 50%; animation: pulse 1.5s infinite; }
+    .source-stats { display: flex; gap: 20px; flex-wrap: wrap; }
+    .source-stat { font-size: 0.82rem; color: var(--mid-grey); display: flex; align-items: center; gap: 5px; }
+    .source-stat strong { color: var(--navy); }
+    .featured-article { background: var(--navy); border-radius: var(--radius-lg); padding: 36px 40px; display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; margin-bottom: 40px; position: relative; overflow: hidden; }
+    .featured-article::before { content: ''; position: absolute; right: -60px; top: -60px; width: 220px; height: 220px; border-radius: 50%; background: rgba(191,10,48,0.12); }
+    .featured-article .fa-tag { font-size: 0.72rem; font-weight: 700; color: var(--red); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; display: block; }
+    .featured-article h3 { color: var(--white); font-size: 1.3rem; margin-bottom: 10px; }
+    .featured-article p { color: rgba(255,255,255,0.7); font-size: 0.88rem; margin-bottom: 18px; }
+    .featured-source { color: var(--red); font-size: 0.78rem; font-weight: 600; }
+    #lastUpdated { font-size: 0.78rem; color: var(--mid-grey); }
+    #refreshBtn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.82rem; padding: 7px 16px; }
+    #refreshBtn.spinning i { animation: spin 1s linear infinite; }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .news-newsletter-cta { background: linear-gradient(135deg, var(--navy), var(--navy-light)); border-radius: var(--radius-lg); padding: 32px 36px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin: 48px 0; }
+    @media (max-width: 768px) {
+      .featured-article { grid-template-columns: 1fr; }
+      .feed-grid.list-view .feed-card { flex-direction: column; }
+      .feed-grid.list-view .feed-card-img { width: 100%; height: 160px; }
+      .filter-bar-inner { gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo" style="text-decoration:none;">
+      <span class="logo-main">American<span>Abroad</span></span>
+      <span class="logo-sub">A Gershon Consulting Initiative</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="news.html" class="active">Weekly Digest</a></li>
+      <li><a href="resources.html">Resource Hub</a></li>
+      <li><a href="leaders.html">Local Leaders</a></li>
+      <li><a href="articles/index.html">Articles</a></li><li><a href="newsletter.html">Newsletter</a></li>
+      <li><a href="partners.html">Become a Partner</a></li>
+      <li><a href="register.html" class="nav-cta">Join the Network</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="container">
+    <div class="live-badge" style="display:inline-flex; margin-bottom:16px;">
+      <span class="live-dot"></span> Live — Auto-Updated
+    </div>
+    <h1>Weekly Digest</h1>
+    <p>The latest from the most trusted sources for Americans abroad — policy, expat life, US taxes, and US news from a global perspective. Updated automatically, every time you visit.</p>
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="news-filter-bar">
+  <div class="container">
+    <div class="filter-bar-inner">
+      <div class="filter-tabs" id="filterTabs">
+        <button class="filter-tab active" data-channel="all">🌐 All News</button>
+        <button class="filter-tab" data-channel="policy">🏛️ Policy & Advocacy</button>
+        <button class="filter-tab" data-channel="expat">🌍 Expat Life</button>
+        <button class="filter-tab" data-channel="taxes">💸 US Taxes</button>
+        <button class="filter-tab" data-channel="us_news">🇺🇸 US News</button>
+      </div>
+      <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+        <button class="btn btn-outline-red btn-sm" id="refreshBtn" onclick="refreshAllFeeds()">
+          <i class="fas fa-sync-alt"></i> Refresh
+        </button>
+        <div class="view-toggle">
+          <button class="view-btn active" id="gridViewBtn" onclick="setView('grid')" title="Grid view">
+            <i class="fas fa-th"></i>
+          </button>
+          <button class="view-btn" id="listViewBtn" onclick="setView('list')" title="List view">
+            <i class="fas fa-list"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<section class="section">
+  <div class="container">
+
+    <!-- STATUS BAR -->
+    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:32px;">
+      <div class="source-stats" id="sourceStats">
+        <div class="source-stat"><i class="fas fa-rss" style="color:var(--red)"></i> <strong id="statSources">—</strong> sources</div>
+        <div class="source-stat"><i class="fas fa-newspaper" style="color:var(--red)"></i> <strong id="statArticles">—</strong> articles loaded</div>
+        <div class="source-stat"><i class="fas fa-clock" style="color:var(--red)"></i> <span id="lastUpdated">Loading…</span></div>
+      </div>
+    </div>
+
+    <!-- FEATURED ARTICLE (dynamically inserted) -->
+    <div id="featuredContainer"></div>
+
+    <!-- ALL CHANNELS — each rendered dynamically -->
+    <div id="allChannels">
+
+      <!-- POLICY & ADVOCACY -->
+      <div class="channel-section" id="channel-policy" data-channel="policy">
+        <div class="channel-header">
+          <h2><span>🏛️</span> Policy & Advocacy <span class="channel-count" id="count-policy">Loading…</span></h2>
+          <div class="channel-source-list" id="sources-policy"></div>
+        </div>
+        <div class="feed-grid" id="grid-policy"></div>
+      </div>
+
+      <!-- EXPAT LIFE -->
+      <div class="channel-section" id="channel-expat" data-channel="expat">
+        <div class="channel-header">
+          <h2><span>🌍</span> Expat Life Worldwide <span class="channel-count" id="count-expat">Loading…</span></h2>
+          <div class="channel-source-list" id="sources-expat"></div>
+        </div>
+        <div class="feed-grid" id="grid-expat"></div>
+      </div>
+
+      <!-- NEWSLETTER CTA -->
+      <div class="news-newsletter-cta">
+        <div>
+          <h3 style="color:var(--white); margin-bottom:8px;">Get This Digest in Your Inbox</h3>
+          <p style="color:rgba(255,255,255,0.7); margin:0; font-size:0.92rem;">Subscribe to the AmericanAbroad newsletter — bi-weekly, curated, free.</p>
+        </div>
+        <a href="newsletter.html" class="btn btn-primary btn-lg">Subscribe Free →</a>
+      </div>
+
+      <!-- TAXES -->
+      <div class="channel-section" id="channel-taxes" data-channel="taxes">
+        <div class="channel-header">
+          <h2><span>💸</span> US Tax & Compliance <span class="channel-count" id="count-taxes">Loading…</span></h2>
+          <div class="channel-source-list" id="sources-taxes"></div>
+        </div>
+        <div class="feed-grid" id="grid-taxes"></div>
+      </div>
+
+      <!-- US NEWS -->
+      <div class="channel-section" id="channel-us_news" data-channel="us_news">
+        <div class="channel-header">
+          <h2><span>🇺🇸</span> US News, Global View <span class="channel-count" id="count-us_news">Loading…</span></h2>
+          <div class="channel-source-list" id="sources-us_news"></div>
+        </div>
+        <div class="feed-grid" id="grid-us_news"></div>
+      </div>
+
+    </div>
+
+    <!-- LEADERS CTA -->
+    <div style="background:linear-gradient(135deg, #060F2E, #0A2463); border-radius:var(--radius-lg); padding:40px; text-align:center; margin-top:56px;">
+      <h3 style="color:var(--red); margin-bottom:10px;">Lead Your City's American Community</h3>
+      <p style="color:rgba(255,255,255,0.75); margin-bottom:22px; max-width:520px; margin-left:auto; margin-right:auto;">
+        Become the AmericanAbroad Local Leader for your city — organize meetups and connect Americans in your community.
+      </p>
+      <a href="leaders.html" class="btn btn-primary btn-lg">Apply to Become a Local Leader →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-main">American<span>Abroad</span></div>
+        <p>AmericanAbroad.net — A Gershon Consulting Initiative — Live news and resources for Americans living abroad, auto-updated from trusted sources.</p>
+      </div>
+      <div>
+        <h4>Digest Topics</h4>
+        <ul>
+          <li><a href="#" onclick="filterChannel('policy')">Policy & Advocacy</a></li>
+          <li><a href="#" onclick="filterChannel('expat')">Expat Life</a></li>
+          <li><a href="#" onclick="filterChannel('taxes')">US Taxes</a></li>
+          <li><a href="#" onclick="filterChannel('us_news')">US News</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="resources.html">Resource Hub</a></li>
+          <li><a href="leaders.html">Local Leaders</a></li>
+          <li><a href="newsletter.html">Newsletter</a></li>
+          <li><a href="partners.html">Partner Program</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Gershon Consulting</h4>
+        <ul>
+          <li><a href="partners.html">US Market Entry</a></li>
+          <li><a href="partners.html">Become a Partner</a></li>
+          <li><a href="partners.html#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 AmericanAbroad.net — A <strong style="color:var(--red)">Gershon Consulting</strong> Initiative.</p>
+      <div class="footer-legal"><a href="#">Privacy</a><a href="#">Legal</a></div>
+    </div>
+  </div>
+</footer>
+
+<button id="back-to-top"><i class="fas fa-chevron-up"></i></button>
+<div class="toast" id="toast"></div>
+
+<script src="js/feeds.js"></script>
+<script src="js/main.js"></script>
+<script>
+/* ── PAGE-LEVEL CONTROLLER ── */
+const FEEDS = window.AAN_Feeds || window.AIF_Feeds;
+const { fetchCategory, buildFeedCard, renderSkeletons, renderError, showLastUpdated, STATIC_FALLBACK } = FEEDS;
+const PAGE_FEEDS = FEEDS.FEEDS_CONFIG;
+
+let currentView = 'grid';
+let allLoadedCards = {};
+let totalArticles = 0;
+let totalSources = 0;
+
+function setView(view) {
+  currentView = view;
+  document.querySelectorAll('.feed-grid').forEach(g => {
+    g.classList.toggle('list-view', view === 'list');
+  });
+  document.getElementById('gridViewBtn').classList.toggle('active', view === 'grid');
+  document.getElementById('listViewBtn').classList.toggle('active', view === 'list');
+}
+
+function filterChannel(channelKey) {
+  document.querySelectorAll('.filter-tab').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.channel === channelKey);
+  });
+  document.querySelectorAll('.channel-section').forEach(sec => {
+    if (channelKey === 'all') sec.style.display = '';
+    else sec.style.display = sec.dataset.channel === channelKey ? '' : 'none';
+  });
+  window.scrollTo({ top: 250, behavior: 'smooth' });
+}
+
+document.getElementById('filterTabs').addEventListener('click', (e) => {
+  const btn = e.target.closest('.filter-tab');
+  if (!btn) return;
+  filterChannel(btn.dataset.channel);
+});
+
+async function renderChannel(channelKey) {
+  const feeds = PAGE_FEEDS[channelKey];
+  if (!feeds) return;
+  const grid = document.getElementById(`grid-${channelKey}`);
+  const countEl = document.getElementById(`count-${channelKey}`);
+  const sourcesEl = document.getElementById(`sources-${channelKey}`);
+  renderSkeletons(grid, Math.min(feeds.length * 2, 6));
+
+  try {
+    let items = await fetchCategory(feeds, 6);
+    if (!items || items.length === 0) {
+      items = STATIC_FALLBACK.slice(0, 6).map(i => ({...i}));
+    }
+    if (sourcesEl) {
+      const seen = new Set();
+      const pills = items
+        .filter(i => { if (seen.has(i.source?.name)) return false; seen.add(i.source?.name); return true; })
+        .map(i => `<span class="channel-source-pill">${i.source?.icon||''} ${i.source?.name||''}</span>`);
+      sourcesEl.innerHTML = pills.join('');
+    }
+    items.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+    const cards = items.slice(0, 12).map(item => buildFeedCard(item, item.source)).join('');
+    grid.innerHTML = cards || `<p style="color:var(--mid-grey); padding:20px;">No articles available right now.</p>`;
+    if (currentView === 'list') grid.classList.add('list-view');
+
+    const count = items.length;
+    if (countEl) countEl.textContent = `${count} article${count !== 1 ? 's' : ''}`;
+
+    allLoadedCards[channelKey] = items.map(item => ({ item, source: item.source }));
+    totalArticles += count;
+    totalSources += new Set(items.map(i => i.source?.name)).size;
+    updateStats();
+
+    if (channelKey === 'policy' && items.length > 0) {
+      renderFeatured({ item: items[0], source: items[0].source });
+    }
+  } catch (err) {
+    renderError(grid);
+    if (countEl) countEl.textContent = 'Error';
+  }
+}
+
+function renderFeatured({ item, source }) {
+  const el = document.getElementById('featuredContainer');
+  if (!el || !item) return;
+  el.innerHTML = `
+    <div class="featured-article">
+      <div>
+        <span class="fa-tag">${source.icon} Featured · ${source.name}</span>
+        <h3>${item.title}</h3>
+        <p>${FEEDS.truncate(item.description || item.content, 160)}</p>
+        <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+          <a href="${item.link}" target="_blank" rel="noopener" class="btn btn-primary">
+            Read Article <i class="fas fa-external-link-alt" style="margin-left:6px; font-size:0.8rem;"></i>
+          </a>
+          <span class="featured-source">${FEEDS.timeAgo(item.pubDate)}</span>
+        </div>
+      </div>
+    </div>`;
+}
+
+function updateStats() {
+  const sa = document.getElementById('statArticles');
+  const ss = document.getElementById('statSources');
+  if (sa) sa.textContent = totalArticles;
+  if (ss) ss.textContent = totalSources;
+  showLastUpdated(document.getElementById('lastUpdated'));
+}
+
+function refreshAllFeeds() {
+  const btn = document.getElementById('refreshBtn');
+  btn.classList.add('spinning');
+  btn.disabled = true;
+  Object.keys(localStorage).filter(k => k.startsWith('aan_feed_') || k.startsWith('aif_feed_')).forEach(k => localStorage.removeItem(k));
+  totalArticles = 0;
+  totalSources = 0;
+  allLoadedCards = {};
+  loadAllChannels().then(() => {
+    btn.classList.remove('spinning');
+    btn.disabled = false;
+    if (typeof showToast === 'function') showToast('✅ All feeds refreshed!', 'success');
+  });
+}
+
+async function loadAllChannels() {
+  const channels = Object.keys(PAGE_FEEDS);
+  await Promise.all(channels.map(ch => renderChannel(ch)));
+}
+
+loadAllChannels();
+</script>
+</body>
+</html>

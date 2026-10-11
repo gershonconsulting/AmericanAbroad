@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Topics — Complete Library for Americans Abroad | AmericanAbroad.net</title>
+  <meta name="description" content="Browse every topic on AmericanAbroad.net: visas, US taxes, banking, healthcare, citizenship, voting from abroad, US market entry and more — the definitive resource for Americans living anywhere in the world.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/landing.css">
+  <style>
+    .topics-hero{background:linear-gradient(135deg,#0A2463 0%,#1B3A8C 50%,#0A2463 100%);padding:120px 0 60px;text-align:center;color:#fff;}
+    .topics-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);margin-bottom:1rem;color:#fff;}
+    .topics-hero p{font-size:1.15rem;opacity:.9;max-width:760px;margin:0 auto 2rem;color:rgba(255,255,255,0.85);}
+    .topics-search{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+    .topics-search input{padding:14px 20px;border:none;border-radius:8px;font-size:1rem;width:340px;max-width:100%;}
+    .topics-search button{padding:14px 24px;background:var(--red);color:#fff;border:none;border-radius:8px;font-size:1rem;cursor:pointer;font-weight:600;}
+    .pillar-section{padding:60px 0 20px;}
+    .pillar-header{display:flex;align-items:center;gap:16px;margin-bottom:30px;padding-bottom:16px;border-bottom:3px solid var(--red);}
+    .pillar-icon{font-size:2rem;width:56px;height:56px;display:flex;align-items:center;justify-content:center;background:#f0f4ff;border-radius:12px;}
+    .pillar-header h2{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--navy);margin:0;}
+    .pillar-header p{color:#666;margin:4px 0 0;font-size:0.95rem;}
+    .topic-cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin-bottom:40px;}
+    .t-card{background:#fff;border:1px solid #e8eaf0;border-radius:12px;padding:24px;transition:all .2s;position:relative;display:block;text-decoration:none;color:inherit;}
+    .t-card:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(10,36,99,.12);border-color:var(--red);}
+    .t-card.coming-soon{opacity:0.6;pointer-events:none;cursor:not-allowed;background:var(--off-white);}
+    .t-card.coming-soon:hover{transform:none;box-shadow:none;border-color:#e8eaf0;}
+    .t-card .tc-icon{font-size:2rem;margin-bottom:12px;}
+    .t-card h3{font-size:1.05rem;font-weight:700;color:var(--navy);margin:0 0 8px;}
+    .t-card p{font-size:0.86rem;color:#666;margin:0;line-height:1.5;}
+    .t-card .tc-badge{position:absolute;top:14px;right:14px;font-size:0.65rem;font-weight:700;padding:3px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:0.5px;}
+    .badge-soon{background:#f0f0f5;color:#666;}
+    .badge-new{background:#d1e7dd;color:#0a3622;}
+    .badge-featured{background:rgba(191,10,48,0.12);color:#8A0820;}
+    .topics-cta{background:linear-gradient(135deg,var(--navy),var(--navy-light));color:#fff;padding:60px 0;text-align:center;margin-top:40px;}
+    .topics-cta h2{font-family:'Playfair Display',serif;font-size:2.2rem;margin-bottom:1rem;color:#fff;}
+    .topics-cta p{font-size:1.05rem;opacity:.85;margin-bottom:2rem;max-width:600px;margin-left:auto;margin-right:auto;color:rgba(255,255,255,0.85);}
+    .hidden{display:none!important;}
+    @media(max-width:768px){.topics-hero h1{font-size:2rem;}.topic-cards-grid{grid-template-columns:1fr;}.pillar-header{flex-direction:column;text-align:center;}}
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo" style="text-decoration:none;">
+      <span class="logo-main">American<span>Abroad</span></span>
+      <span class="logo-sub">A Gershon Consulting Initiative</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="news.html">Weekly Digest</a></li>
+      <li><a href="topics.html" class="active">All Topics</a></li>
+      <li><a href="resources.html">Resource Hub</a></li>
+      <li><a href="leaders.html">Local Leaders</a></li>
+      <li><a href="articles/index.html">Articles</a></li><li><a href="newsletter.html">Newsletter</a></li>
+      <li><a href="register.html" class="nav-cta">Join the Network</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="topics-hero">
+  <div class="container">
+    <h1>Every Topic You Need</h1>
+    <p>The complete AmericanAbroad.net library — in-depth guides covering every aspect of life as an American living abroad, from visas and taxes to community-building and global business.</p>
+    <div class="topics-search">
+      <input type="text" id="topicSearch" placeholder="Search topics… (e.g. FBAR, visa, banking, voting)" onkeyup="filterTopics()">
+      <button onclick="filterTopics()">Search</button>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ============ PILLAR 1: LIVING ABROAD ============ -->
+  <div class="pillar-section">
+    <div class="pillar-header">
+      <div class="pillar-icon"><span class="pillar-badge pillar-living">Living</span></div>
+      <div>
+        <h2>Living Abroad</h2>
+        <p>Everything you need to build your life as an American outside the United States — from first move to long-term roots.</p>
+      </div>
+    </div>
+    <div class="topic-cards-grid">
+
+      <a href="#" class="t-card coming-soon" data-topic="moving abroad relocation checklist first steps">
+        <div class="tc-icon">📦</div><h3>Moving Abroad — Complete Checklist</h3><p>Your relocation playbook from passport to settled life in your host country.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="#" class="t-card coming-soon" data-topic="visa long stay residency permit">
+        <div class="tc-icon">✈️</div><h3>Long-Stay Visas</h3><p>Visa categories, application strategies, and country-by-country requirements.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="#" class="t-card coming-soon" data-topic="residency permit titre de sejour stay">
+        <div class="tc-icon">📋</div><h3>Residency Permits</h3><p>How to obtain and renew long-term residence in your host country.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="#" class="t-card coming-soon" data-topic="dual citizenship naturalization passport">
+        <div class="tc-icon">🛂</div><h3>Citizenship & Naturalization</h3><p>Paths to a second passport, dual citizenship rules, and what it means for your US status.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="#" class="t-card coming-soon" data-topic="banking abroad FATCA bank account">
+        <div class="tc-icon">🏦</div><h3>Banking Abroad</h3><p>Opening accounts as an American despite FATCA, multi-currency tools, and money transfers.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="#" class="t-card coming-soon" data-topic="healthcare insurance international">
+        <div class="tc-icon">🏥</div><h3>Healthcare Abroad</h3><p>National systems, private insurance options, and Medicare-while-abroad realities.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="#" class="t-card coming-soon" data-topic="real estate property buying renting">
+        <div class="tc-icon">🏡</div><h3>Real Estate Abroad</h3><p>Buying property as a foreigner, renting laws, and US tax implications of foreign real estate.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="#" class="t-card coming-soon" data-topic="education school international">
+        <div class="tc-icon">🎓</div><h3>Education Abroad</h3><p>American schools, international schools, IB programs, and university options worldwide.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="#" class="t-card coming-soon" data-topic="retirement retire pension abroad">
+        <div class="tc-icon">🌅</div><h3>Retirement Abroad</h3><p>Best countries to retire as an American, healthcare access, and Social Security overseas.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="#" class="t-card coming-soon" data-topic="driving license car international">
+        <div class="tc-icon">🚗</div><h3>Driving Abroad</h3><p>Exchanging your US license, IDP rules, and country-specific driving requirements.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="#" class="t-card coming-soon" data-topic="language learning local foreign">
+        <div class="tc-icon">🗣️</div><h3>Language Learning</h3><p>Best methods, apps and immersion strategies for adult Americans abroad.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="#" class="t-card coming-soon" data-topic="cultural adaptation expat assimilation">
+        <div class="tc-icon">🌍</div><h3>Cultural Adaptation</h3><p>Navigating culture shock, building local friendships, and avoiding the expat bubble.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="#" class="t-card coming-soon" data-topic="pet relocation dog cat moving">
+        <div class="tc-icon">🐾</div><h3>Pet Relocation</h3><p>Microchips, rabies titers, airline rules and entry requirements for pets worldwide.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="#" class="t-card coming-soon" data-topic="wills estate inheritance succession">
+        <div class="tc-icon">⚖️</div><h3>Wills & Estate Planning</h3><p>Cross-border estate planning, foreign wills, US estate tax exposure for Americans abroad.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ============ PILLAR 2: TAXES & COMPLIANCE ============ -->
+  <div class="pillar-section">
+    <div class="pillar-header">
+      <div class="pillar-icon"><span class="pillar-badge pillar-taxes">Taxes</span></div>
+      <div>
+        <h2>Taxes & Compliance</h2>
+        <p>Navigating the unique burden of US citizenship-based taxation alongside your host-country obligations.</p>
+      </div>
+    </div>
+    <div class="topic-cards-grid">
+
+      <a href="#" class="t-card coming-soon" data-topic="us taxes IRS FEIE foreign income">
+        <div class="tc-icon">🇺🇸</div><h3>US Taxes Abroad</h3><p>FEIE, foreign tax credit, Form 1040, deadlines — your complete annual filing guide.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="#" class="t-card coming-soon" data-topic="FBAR FinCEN foreign bank account">
+        <div class="tc-icon">🏦</div><h3>FBAR — Foreign Bank Account Reporting</h3><p>Who must file FinCEN 114, what to report, deadlines, and penalty risks.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="#" class="t-card coming-soon" data-topic="FATCA Form 8938 foreign assets">
+        <div class="tc-icon">📋</div><h3>FATCA & Form 8938</h3><p>Reporting foreign financial assets, thresholds for expats, FATCA vs FBAR.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="#" class="t-card coming-soon" data-topic="host country taxes local income">
+        <div class="tc-icon">💶</div><h3>Host-Country Taxes</h3><p>How to file local income tax, residency rules, and dual-filing strategy.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="#" class="t-card coming-soon" data-topic="tax treaty double taxation">
+        <div class="tc-icon">🤝</div><h3>Tax Treaties</h3><p>How US tax treaties work — which articles matter, and where treaties don't cover you.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="#" class="t-card coming-soon" data-topic="social security totalization">
+        <div class="tc-icon">💰</div><h3>Social Security Abroad</h3><p>Receiving US benefits overseas, totalization agreements, Medicare-abroad reality.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="#" class="t-card coming-soon" data-topic="renunciation exit tax expatriation">
+        <div class="tc-icon">📄</div><h3>Renouncing US Citizenship</h3><p>Exit tax, Form 8854, the embassy process, and what you actually lose.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="#" class="t-card coming-soon" data-topic="streamlined procedures non-filer compliance">
+        <div class="tc-icon">📝</div><h3>Streamlined Procedures</h3><p>How non-filers abroad get back into compliance without late-filing penalties.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ============ PILLAR 3: BUSINESS ABROAD ============ -->
+  <div class="pillar-section">
+    <div class="pillar-header">
+      <div class="pillar-icon"><span class="pillar-badge pillar-business">Business</span></div>
+      <div>
+        <h2>Business Abroad</h2>
+        <p>Setting up and running a business as an American abroad — freelancing, structures, taxes, and labor law.</p>
+      </div>
+    </div>
+    <div class="topic-cards-grid">
+
+      <a href="#" class="t-card coming-soon" data-topic="freelancing consultant independent abroad">
+        <div class="tc-icon">💻</div><h3>Freelancing Abroad</h3><p>Building a remote consulting practice, finding clients, and the unique value Americans bring.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="#" class="t-card coming-soon" data-topic="business structure LLC corporation abroad">
+        <div class="tc-icon">🏢</div><h3>Business Structures Abroad</h3><p>Local company forms, when to use US LLCs/C-Corps, and US Form 5471 implications.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="#" class="t-card coming-soon" data-topic="accounting VAT bookkeeping international">
+        <div class="tc-icon">📊</div><h3>Accounting & VAT Abroad</h3><p>VAT/GST registration, bookkeeping standards, and cross-border accounting realities.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="#" class="t-card coming-soon" data-topic="labor law employment hiring abroad">
+        <div class="tc-icon">⚖️</div><h3>Host-Country Labor Law</h3><p>Hiring locally, employee vs. contractor rules, and the true cost of foreign employment.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ============ PILLAR 4: US MARKET EXPANSION ============ -->
+  <div class="pillar-section">
+    <div class="pillar-header">
+      <div class="pillar-icon"><span class="pillar-badge pillar-market">US Market</span></div>
+      <div>
+        <h2>US Market Expansion</h2>
+        <p>The Gershon Consulting core — helping international companies (and the Americans who advise them) successfully enter the US market.</p>
+      </div>
+    </div>
+    <div class="topic-cards-grid">
+
+      <a href="#" class="t-card coming-soon" data-topic="US market entry strategy expansion">
+        <div class="tc-icon">🗺️</div><h3>US Market Entry Strategy</h3><p>Market assessment, foundation building, and go-to-market execution for foreign companies.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="#" class="t-card coming-soon" data-topic="US company setup Delaware LLC EIN">
+        <div class="tc-icon">🏢</div><h3>Setting Up a US Company</h3><p>Delaware LLC vs C-Corp, EIN, US banking, and the remote-setup process.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="#" class="t-card coming-soon" data-topic="US go to market sales channels">
+        <div class="tc-icon">🚀</div><h3>US Go-to-Market</h3><p>US sales culture, channel selection, pricing, content, and partner strategies.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="#" class="t-card coming-soon" data-topic="US trade shows CES NRF SXSW">
+        <div class="tc-icon">🎪</div><h3>Key US Trade Shows</h3><p>CES, NRF, SXSW and other industry events — by sector, with foreign-pavilion notes.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="#" class="t-card coming-soon" data-topic="US fundraising VC investors angel">
+        <div class="tc-icon">💵</div><h3>US Fundraising</h3><p>VC landscape, angel investors, accelerators, and the pitching realities for non-US founders.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="#" class="t-card coming-soon" data-topic="US sales culture cold outreach">
+        <div class="tc-icon">💼</div><h3>US Sales Culture</h3><p>What's different about selling in America — pace, directness, and what your customers expect.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="#" class="t-card coming-soon" data-topic="US digital marketing SEO content">
+        <div class="tc-icon">📈</div><h3>US Digital Marketing</h3><p>SEO, content, paid acquisition and what works for foreign brands entering the US.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="#" class="t-card coming-soon" data-topic="US distribution channels resellers retail">
+        <div class="tc-icon">🚚</div><h3>US Distribution</h3><p>Direct, reseller, distributor and retail strategies for the US market.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ============ PILLAR 5: COMMUNITY & AMERICAN LIFE ============ -->
+  <div class="pillar-section">
+    <div class="pillar-header">
+      <div class="pillar-icon"><span class="pillar-badge pillar-community">Community</span></div>
+      <div>
+        <h2>Community & American Life</h2>
+        <p>The grassroots backbone of being American abroad — country guides, embassy resources, voting, and the AmericanAbroad Local Leaders program.</p>
+      </div>
+    </div>
+    <div class="topic-cards-grid">
+
+      <a href="#" class="t-card coming-soon" data-topic="americans by country directory portugal mexico germany">
+        <div class="tc-icon">🌎</div><h3>Americans By Country</h3><p>Country-by-country guides — population, top cities, key resources for Americans there.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="#" class="t-card coming-soon" data-topic="us embassies worldwide consulate locator">
+        <div class="tc-icon">🏛️</div><h3>US Embassies Worldwide</h3><p>Embassy & consulate locator, services available, and how to schedule appointments.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="#" class="t-card coming-soon" data-topic="voting from abroad FVAP absentee ballot">
+        <div class="tc-icon">🗳️</div><h3>Voting From Abroad</h3><p>FVAP, FPCA forms, state-by-state deadlines, and how to vote in every US election.</p>
+        <span class="tc-badge badge-featured">Featured</span>
+      </a>
+      <a href="#" class="t-card coming-soon" data-topic="expat community organizations AARO ACA FAWCO">
+        <div class="tc-icon">🤝</div><h3>Expat Community Orgs</h3><p>ACA, AARO, FAWCO, Democrats Abroad, Republicans Overseas — who they are and what they do.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="leaders.html" class="t-card" data-topic="local leaders program meetups community">
+        <div class="tc-icon">🇺🇸</div><h3>Local Leaders Program</h3><p>Become the AmericanAbroad point of contact in your city — organize meetups, build community.</p>
+        <span class="tc-badge badge-new">Live</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ============ PILLAR 6: GERSHON CONSULTING ============ -->
+  <div class="pillar-section">
+    <div class="pillar-header">
+      <div class="pillar-icon"><span class="pillar-badge pillar-europe">Gershon</span></div>
+      <div>
+        <h2>Gershon Consulting</h2>
+        <p>The team behind AmericanAbroad.net — and your partner for US market entry, partner programs, and global expat advisory services.</p>
+      </div>
+    </div>
+    <div class="topic-cards-grid">
+
+      <a href="#" class="t-card coming-soon" data-topic="gershon about consulting team">
+        <div class="tc-icon">🏛️</div><h3>About Gershon Consulting</h3><p>Who we are, what we do, and why we built AmericanAbroad.net.</p>
+        <span class="tc-badge badge-soon">Coming Soon</span>
+      </a>
+      <a href="partners.html" class="t-card" data-topic="gershon services partner program">
+        <div class="tc-icon">💼</div><h3>Gershon Services</h3><p>US market entry strategy, sales infrastructure, partner programs and advisory retainers.</p>
+        <span class="tc-badge badge-new">Live</span>
+      </a>
+      <a href="partners.html#contact" class="t-card" data-topic="gershon contact reach out">
+        <div class="tc-icon">✉️</div><h3>Contact Gershon</h3><p>Get in touch — about partnership, the site, or US market entry projects.</p>
+        <span class="tc-badge badge-new">Live</span>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== CTA ===== -->
+<div class="topics-cta">
+  <div class="container">
+    <h2>Don't See What You Need?</h2>
+    <p>We're adding new topics every week. Subscribe to the newsletter to be notified when guides launch — or join the network to request your priorities.</p>
+    <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
+      <a href="newsletter.html" class="btn btn-primary btn-lg">Subscribe Free</a>
+      <a href="register.html" class="btn btn-secondary btn-lg">Join the Network</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-main">American<span>Abroad</span></div>
+        <p>AmericanAbroad.net — A Gershon Consulting Initiative — The complete resource hub for Americans living abroad.</p>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="resources.html#taxes">US Taxes Abroad</a></li>
+          <li><a href="resources.html#government">Government & Official</a></li>
+          <li><a href="resources.html#banking">Banking</a></li>
+          <li><a href="resources.html#health">Health Insurance</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Community</h4>
+        <ul>
+          <li><a href="leaders.html">Local Leaders</a></li>
+          <li><a href="newsletter.html">Newsletter</a></li>
+          <li><a href="register.html">Join the Network</a></li>
+          <li><a href="news.html">Weekly Digest</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Gershon Consulting</h4>
+        <ul>
+          <li><a href="partners.html">US Market Entry</a></li>
+          <li><a href="partners.html">Become a Partner</a></li>
+          <li><a href="partners.html#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 AmericanAbroad.net — A <strong style="color:var(--red)">Gershon Consulting</strong> Initiative.</p>
+      <div class="footer-legal"><a href="#">Privacy</a><a href="#">Legal</a></div>
+    </div>
+  </div>
+</footer>
+
+<button id="back-to-top"><i class="fas fa-chevron-up"></i></button>
+<div class="toast" id="toast"></div>
+<script src="js/main.js"></script>
+<script src="js/landing.js"></script>
+<script>
+function filterTopics() {
+  const q = (document.getElementById('topicSearch').value || '').trim().toLowerCase();
+  document.querySelectorAll('.t-card').forEach(card => {
+    const haystack = (card.dataset.topic + ' ' + card.textContent).toLowerCase();
+    card.classList.toggle('hidden', q && !haystack.includes(q));
+  });
+  // Hide pillar sections if all cards inside are hidden
+  document.querySelectorAll('.pillar-section').forEach(p => {
+    const visible = p.querySelectorAll('.t-card:not(.hidden)').length;
+    p.style.display = visible === 0 ? 'none' : '';
+  });
+}
+</script>
+</body>
+</html>
