@@ -895,3 +895,18 @@ select.form-control { cursor: pointer; }
   .newsletter-form { flex-direction: column; }
   .partner-steps { grid-template-columns: 1fr; }
 }
+
+/* Community social links (LinkedIn Group + X) */
+.footer-social { margin-top: 18px; }
+.footer-social p { font-size: 0.8rem; color: rgba(255,255,255,0.45); margin: 0 0 8px; }
+.footer-social .fs-links { display: flex; gap: 12px; }
+.footer-social a { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.75); font-size: 1.05rem; transition: background .2s, color .2s; }
+.footer-social a:hover { background: var(--red); color: var(--white); }
+.community-band { background: var(--navy); color: var(--white); padding: 48px 0; text-align: center; }
+.community-band h2 { color: var(--white); font-family: var(--font-serif); margin: 0 0 10px; }
+.community-band p { color: rgba(255,255,255,0.75); max-width: 620px; margin: 0 auto 22px; }
+.community-band .cb-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.community-band .cb-btns a { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 8px; font-weight: 600; text-decoration: none; }
+.community-band .cb-li { background: #0A66C2; color: #fff; }
+.community-band .cb-x { background: #000; color: #fff; border: 1px solid rgba(255,255,255,0.3); }
+.community-band .cb-btns a:hover { opacity: .9; }
