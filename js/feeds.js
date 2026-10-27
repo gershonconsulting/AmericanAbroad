@@ -5,7 +5,7 @@
    ============================================================ */
 (function() {
 'use strict';
-// ── FEED CONFIGURATION ────────────────────────────────────
+// ── FEED CONFIGURATION ────────────────────────────────────────
 const FEEDS_CONFIG = {
 
   policy: [
@@ -38,7 +38,7 @@ const FEEDS_CONFIG = {
 };
 
 
-// ── STATIC FALLBACK CONTENT ───────────────────────────────
+// ── STATIC FALLBACK CONTENT ───────────────────────────────────────
 // Shown when all live feeds fail — always looks great
 const STATIC_FALLBACK = [
   {
@@ -99,9 +99,7 @@ const STATIC_FALLBACK = [
   }
 ];
 
-];
-
-// ── CORS PROXY SETTINGS ───────────────────────────────────
+// ── CORS PROXY SETTINGS ───────────────────────────────────────────
 const CORS_PROXY   = "https://api.allorigins.win/get?url=";
 const CACHE_PREFIX = "aan_feed_v1_";
 const CACHE_TTL    = 4 * 60 * 60 * 1000;   // 4 hours
@@ -184,7 +182,7 @@ async function fetchCategory(categoryFeeds, maxPerFeed = 4) {
     .flatMap(r => r.value.slice(0, maxPerFeed));
 }
 
-// ── Fetch ALL feeds across all categories ────────────────
+// ── Fetch ALL feeds across all categories ─────────────────
 async function fetchAllFeeds(maxPerFeed = 3) {
   const allFeeds = Object.values(FEEDS_CONFIG).flat();
   const results  = await Promise.allSettled(allFeeds.map(f => fetchFeed(f)));
@@ -196,7 +194,7 @@ async function fetchAllFeeds(maxPerFeed = 3) {
   return items.length > 0 ? items : STATIC_FALLBACK;
 }
 
-// ── Utility: relative time ────────────────────────────────
+// ── Utility: relative time ──────────────────────────────────────────
 function timeAgo(dateStr) {
   try {
     const diff    = Date.now() - new Date(dateStr).getTime();
@@ -210,14 +208,14 @@ function timeAgo(dateStr) {
   } catch { return ''; }
 }
 
-// ── Utility: strip HTML + truncate ───────────────────────
+// ── Utility: strip HTML + truncate ─────────────────────────────────────
 function truncate(str, max = 130) {
   if (!str) return '';
   const clean = str.replace(/<[^>]+>/g,'').replace(/&[a-z#0-9]+;/gi,' ').replace(/\s+/g,' ').trim();
   return clean.length > max ? clean.substring(0, max) + '…' : clean;
 }
 
-// ── Build full feed card (news.html) ─────────────────────
+// ── Build full feed card (news.html) ─────────────────────────────────────
 function buildFeedCard(item, source) {
   const src = source || item.source || { name:'News', tag:'Update', color:'#0A1F5C', icon:'📰' };
   return `
@@ -241,7 +239,7 @@ function buildFeedCard(item, source) {
   </article>`;
 }
 
-// ── Build compact row (homepage widget) ──────────────────
+// ── Build compact row (homepage widget) ──────────────────────────────────
 function buildFeedRow(item, source) {
   const src = source || item.source || { name:'News', color:'#0A1F5C', icon:'📰' };
   return `
@@ -258,7 +256,7 @@ function buildFeedRow(item, source) {
   </div>`;
 }
 
-// ── Skeleton loader ───────────────────────────────────────
+// ── Skeleton loader ─────────────────────────────────────────────────────
 function renderSkeletons(container, count = 6) {
   if (!container) return;
   container.innerHTML = Array(count).fill(`
@@ -271,7 +269,7 @@ function renderSkeletons(container, count = 6) {
     </div>`).join('');
 }
 
-// ── Error state ───────────────────────────────────────────
+// ── Error state ────────────────────────────────────────────────────────
 function renderError(container, message = "Couldn't load feed.") {
   if (!container) return;
   container.innerHTML = `
@@ -284,7 +282,7 @@ function renderError(container, message = "Couldn't load feed.") {
     </div>`;
 }
 
-// ── Last updated stamp ────────────────────────────────────
+// ── Last updated stamp ─────────────────────────────────────────────────────
 function showLastUpdated(el) {
   if (!el) return;
   el.textContent = 'Last updated: ' + new Date().toLocaleDateString('en-US', {
@@ -310,7 +308,7 @@ async function renderFeedWidget(container, categoryKey, maxItems = 6) {
     .join('');
 }
 
-// ── Render compact rows for homepage ─────────────────────
+// ── Render compact rows for homepage ─────────────────────────────────
 async function renderHomepageFeed(container, maxItems = 6) {
   if (!container) return;
   container.innerHTML = '<div style="padding:20px;color:#666;font-size:0.9rem;">Loading latest news…</div>';
