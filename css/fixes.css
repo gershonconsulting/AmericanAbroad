@@ -1,0 +1,11 @@
+/* Nav: keep labels on one line on laptop widths (added 2026-10) */
+.nav-links a { white-space: nowrap; }
+@media (min-width: 769px) and (max-width: 1320px) {
+  .nav-links { gap: 2px; }
+  .nav-links a { font-size: 0.82rem; padding: 8px 9px; }
+  .nav-links .nav-cta { padding: 8px 12px; margin-left: 4px; }
+  .nav-logo .logo-sub { display: none; }
+}
+@media (min-width: 769px) and (max-width: 1060px) {
+  .nav-links a { font-size: 0.76rem; padding: 6px 6px; }
+}
