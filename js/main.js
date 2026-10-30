@@ -4,14 +4,46 @@
    ============================================================ */
 
 // ---- REGISTRATION ENDPOINT ----
-// Cloudflare Worker that proxies form submissions to Brevo (so the
-// API key is never exposed in browser source). See cloudflare-worker.js
-// and SETUP_REGISTRATION.md in the project root.
-// Update this constant once the Worker is deployed.
-const SUBMIT_ENDPOINT = 'https://api.americanabroad.net/subscribe';
+// Every form posts to the site's own PHP handler on Hostinger
+// (api/submit.php): stored in api/data/submissions.csv + email notification.
+const SITE_ROOT = (function () {
+  const s = document.currentScript && document.currentScript.src;
+  return s ? s.replace(/js\/main\.js(\?.*)?$/, '') : '/';
+})();
+const SUBMIT_ENDPOINT = SITE_ROOT + 'api/submit.php';
+const TRACK_ENDPOINT  = SITE_ROOT + 'api/t.php';
+
+// ---- CAMPAIGN ATTRIBUTION (UTM) ----
+// First-touch UTM tags are kept for the browser session so a visitor who
+// lands from a Snov.io email and applies two pages later is still attributed.
+const AAN_UTM = (function () {
+  const q = new URLSearchParams(location.search);
+  let saved = null;
+  try { saved = JSON.parse(sessionStorage.getItem('aan_utm') || 'null'); } catch (e) {}
+  if (q.get('utm_source') || q.get('utm_campaign')) {
+    saved = {
+      utm_source: q.get('utm_source') || '', utm_medium: q.get('utm_medium') || '',
+      utm_campaign: q.get('utm_campaign') || '', utm_content: q.get('utm_content') || '',
+      landing_page: location.pathname, referrer: document.referrer || ''
+    };
+    try { sessionStorage.setItem('aan_utm', JSON.stringify(saved)); } catch (e) {}
+  }
+  return saved || { utm_source: '', utm_medium: '', utm_campaign: '', utm_content: '',
+                    landing_page: location.pathname, referrer: document.referrer || '' };
+})();
+
+// Page-visit beacon (first-party, no cookies)
+(function () {
+  if (location.protocol === 'file:') return;
+  const q = new URLSearchParams({
+    p: location.pathname, us: AAN_UTM.utm_source, um: AAN_UTM.utm_medium,
+    uc: AAN_UTM.utm_campaign, ut: AAN_UTM.utm_content, r: document.referrer || ''
+  });
+  try { navigator.sendBeacon ? navigator.sendBeacon(TRACK_ENDPOINT + '?' + q) : fetch(TRACK_ENDPOINT + '?' + q, { keepalive: true }); } catch (e) {}
+})();
 
 async function submitToAAN(formType, data) {
-  const payload = Object.assign({}, data, {
+  const payload = Object.assign({}, AAN_UTM, data, {
     form_type: formType,
     website: data.website || '',          // honeypot (must stay empty for real users)
     submitted_at: new Date().toISOString()
@@ -22,12 +54,13 @@ async function submitToAAN(formType, data) {
     body: JSON.stringify(payload)
   });
   if (!res.ok) {
-    let msg = 'Subscription failed';
+    let msg = 'Submission failed';
     try { const j = await res.json(); msg = j.error || msg; } catch {}
     throw new Error(msg);
   }
   return res.json().catch(() => ({ ok: true }));
 }
+window.submitToAAN = submitToAAN;
 
 // ---- NAVBAR ----
 const navbar = document.getElementById('navbar');
