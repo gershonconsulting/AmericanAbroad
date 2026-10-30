@@ -99,8 +99,6 @@ const STATIC_FALLBACK = [
   }
 ];
 
-];
-
 // ── CORS PROXY SETTINGS ───────────────────────────────────
 const CORS_PROXY   = "https://api.allorigins.win/get?url=";
 const CACHE_PREFIX = "aan_feed_v1_";
