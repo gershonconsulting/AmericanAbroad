@@ -1,0 +1,19 @@
+HANDOFF 2026-11-07 (AmericanAbroad nightly audit)
+
+AUDIT FINDINGS ON LIVE https://americanabroad.net
+- JS parse error "Unexpected token ']'": from live /js/feeds.js line 102 (stray "];"). 
+- 553px horizontal overflow at 390px viewport (scrollWidth 553; 32 elements past right edge, in homepage card/feed rows).
+
+ROOT CAUSE
+- Live site is STALE. Repo main (c18267e) already contains the fix (commit c88307f removed the stray "];" in js/feeds.js) plus the layout fixes. The live HTML lacks css/fixes.css and the SEO tags that main has, so main has not been deployed to Hostinger.
+
+VERIFIED ON main (served locally, Playwright chromium)
+[x] js/feeds.js, js/main.js, js/landing.js pass node --check; inline scripts in index.html parse
+[x] No JS parse/page errors at 1280 and 390 (only a 501 on POST api/t.php, an artifact of python http.server)
+[x] scrollWidth at 390 = 390 (live: 553); at 1280 = 1280
+[ ] Only remaining >390 element is the fixed-position .toast (offscreen by design, no scroll effect)
+
+NO CODE CHANGE NEEDED. ACTION FOR OLIVIER
+- Re-run the "Deploy to Hostinger via FTP" workflow (Actions > workflow_dispatch on main) or check why the last push-to-main run failed/was skipped (FTP secrets?). Not done by this agent: no deploys allowed.
+- No branch preview exists: deploy is FTP to Hostinger on push to main only (no Cloudflare/GH Pages).
+- Note: this file and PR #1's HANDOFF.txt would be uploaded to the public web root (only *.md/*.xlsx excluded).
