@@ -156,6 +156,10 @@ VERIFIED ON main (served locally, Playwright chromium)
        (3) move hosting to Cloudflare Pages (push-to-deploy like the other
            Gershon sites).
 
+12. NIGHTLY 2026-11-19
+----------------------------------------------------------------
+[x] Re-audited main at 390px on all 9 pages: scrollWidth == innerWidth (390), no CSS change needed (only offscreen fixed .toast); live americanabroad.net still stale (no css/fixes.css), so the 553px overflow persists until the FTP deploy runs.
+
 ================================================================
 END OF HANDOFF
 ================================================================
